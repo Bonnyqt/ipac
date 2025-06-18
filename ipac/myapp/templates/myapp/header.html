@@ -1,12 +1,14 @@
-<section class="header">
+{% load static %}
+
+<section class="header sticky-header">
        <div class="container">
            <div class="header-content">
-               <a href="#" class="logo">
+               <a href="{% url 'index' %}" class="logo">
                    <H3>LEXIPAC</H3>
                </a>
                <div class="header-content-menu">
                    <ul>
-                       <li><a href="#">About</a></li>
+                       <li><a href="{% url 'about' %}">About</a></li>
                        <li><a href="#">Services</a></li>
                        <li><a href="#">Practice Areas</a></li>
                        <li><a href="#">Contact</a></li>
@@ -14,4 +16,30 @@
                </div>
            </div>
        </div>
-   </section>
+</section>
+<style>
+/* Sticky header styles */
+.sticky-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: #fff;
+  transition: box-shadow 0.2s;
+}
+body.dark-mode .sticky-header {
+  background: #181a1b;
+}
+.sticky-header.scrolled {
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+</style>
+<script>
+window.addEventListener('scroll', function() {
+  const header = document.querySelector('.sticky-header');
+  if (window.scrollY > 10) {
+    header.classList.add('scrolled');
+  } else {
+    header.classList.remove('scrolled');
+  }
+});
+</script>
