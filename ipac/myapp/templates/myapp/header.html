@@ -1,5 +1,23 @@
 {% load static %}
+<style>
+.header-content-menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  gap: 20px; /* optional spacing between links */
+}
 
+.header-content-menu li a {
+  text-decoration: none;
+  color: #333; /* default text color */
+  transition: color 0.3s ease;
+}
+
+.header-content-menu li a:hover {
+  color: #007BFF; /* change to your preferred hover color */
+}
+</style>
 <section class="header sticky-header">
        <div class="container">
            <div class="header-content">
@@ -8,10 +26,13 @@
                </a>
                <div class="header-content-menu">
                    <ul>
-                       <li><a href="{% url 'about' %}">About</a></li>
-                       <li><a href="#">Services</a></li>
-                       <li><a href="#">Practice Areas</a></li>
-                       <li><a href="#">Contact</a></li>
+                    <li><a href="{% url 'index' %}">Home</a></li>
+                       <li><a href="#">Book</a></li>
+                       <li><a href="#">Academic</a></li>
+                       <li><a href="#">Law</a></li>
+                       <li><a href="#">Law & Technology</a></li>
+                       <li><a href="#">Beyond The Law</a></li>
+                       <li><a href="{% url 'about' %}">About</a></li> 
                    </ul>
                </div>
            </div>
