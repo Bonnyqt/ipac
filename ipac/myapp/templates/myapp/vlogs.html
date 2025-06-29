@@ -1,0 +1,243 @@
+{% load static %}
+
+<style>
+.favorites-section {
+  position: relative;
+  background-color: #fffcf3;
+  padding: 40px 20px 20px;
+  text-align: center;
+  overflow: hidden;
+}
+.background-text {
+  font-family: 'Playfair Display', serif;
+  font-size: 50px;
+  position: relative;
+  display: inline-block;
+  color: rgb(0, 0, 0);
+  z-index: 0;
+  overflow: hidden;
+}
+
+.elegant-line-text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Playfair Display', serif;
+  font-size: 20px;
+  color: #2c1d18;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  position: relative;
+  
+}
+
+.elegant-line-text::before,
+.elegant-line-text::after {
+  content: "";
+  flex: 0.1;
+  height: 1px;
+  background: #2c1d18;
+  margin: 0 10px;
+  opacity: 0.5;
+}
+
+.vlog-gallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 62px;
+  justify-content: center;
+  margin-top: 22px;
+}
+
+.vlog-card {
+  position: relative;
+  width: 420px;
+  height: 300px;
+  border-radius: 5px;
+  overflow: hidden;
+  box-shadow: 0 4px 24px rgba(44,29,24,0.10);
+  cursor: pointer;
+  background: #fff;
+  transition: transform 0.2s;
+}
+.vlog-card:hover {
+  transform: translateY(-8px) scale(1.03);
+  box-shadow: 0 8px 32px rgba(44,29,24,0.18);
+}
+.vlog-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: filter 0.3s;
+}
+.vlog-card:hover img {
+  filter: brightness(0.7) blur(1px);
+}
+.vlog-hover-text {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  background: rgba(44,29,24,0.55);
+  opacity: 0;
+  transition: opacity 0.4s;
+  text-align: center;
+  padding: 24px;
+  pointer-events: none;
+}
+.vlog-card:hover .vlog-hover-text {
+  opacity: 1;
+  pointer-events: auto;
+}
+.vlog-hover-text h3 {
+  margin: 0 0 8px 0;
+  font-size: 1.4rem;
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+.vlog-hover-text p {
+  margin: 0;
+  font-size: 1rem;
+  font-family: 'Montserrat', sans-serif;
+}
+
+
+.new-post-banner {
+  position: absolute;
+  top: 17px;
+  right: -40px;
+  width: 140px;
+  text-align: center;
+  background-color: rgb(153, 25, 51);
+  color: white;
+  padding: 5px 0;
+  transform: rotate(45deg);
+  font-size: 12px;
+  font-weight: bold;
+  z-index: 2;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+   
+.luxury-btn {
+  display: inline-block;
+  padding: 14px 34px;
+  color: #000000;
+  font-family: 'Playfair Display', serif;
+  font-size: 14px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+    cursor: pointer;
+  margin: 28px auto 0 auto;
+  border: 2px solid #000000; /* GOLD BORDER */
+ 
+  background: transparent;
+
+  transition: all 0.35s ease;
+  position: relative;
+  overflow: hidden;
+ 
+  z-index: 20; 
+}
+
+.luxury-btn:hover {
+  background-color: #000000;
+  color: #fff;
+  box-shadow: 0 0 16px rgba(0, 0, 0, 0.5);
+}
+/* Mobile only: limit vlog cards to 3 and show button */
+@media (max-width: 768px) {
+  .vlog-card {
+    width: 98vw;
+    max-width: 420px;
+    min-width: 0;
+  }
+}
+</style>
+<div class="favorites-section">
+  <div class="elegant-line-text">VLOGS</div>
+  <h1 class="background-text" style="font-family: 'Playfair Display', serif; font-size: 50px;">LATEST</h1>
+
+  <div class="vlog-gallery" id="vlogGallery">
+  <div class="vlog-card">
+    <div class="new-post-banner">NEW POST</div>
+    <img src="https://cdn-inbmd.nitrocdn.com/MSXgikZvodSLiKpZpZcUrlItUwERsEkl/assets/images/optimized/rev-e4f11d7/www.jjmccaskill.com/wp-content/uploads/2023/07/Difference-Between-Lawyer-and-Attorney.jpg" alt="Vlog 1">
+    <div class="vlog-hover-text">
+      <h3>Vlog Title 1</h3>
+      <p>Short description or date here.</p>
+    </div>
+  </div>
+  <div class="vlog-card">
+    <img src="https://cdn-inbmd.nitrocdn.com/MSXgikZvodSLiKpZpZcUrlItUwERsEkl/assets/images/optimized/rev-e4f11d7/www.jjmccaskill.com/wp-content/uploads/2023/07/Difference-Between-Lawyer-and-Attorney.jpg" alt="Vlog 2">
+    <div class="vlog-hover-text">
+      <h3>Vlog Title 2</h3>
+      <p>Short description or date here.</p>
+    </div>
+  </div>
+  <div class="vlog-card">
+    <img src="https://cdn-inbmd.nitrocdn.com/MSXgikZvodSLiKpZpZcUrlItUwERsEkl/assets/images/optimized/rev-e4f11d7/www.jjmccaskill.com/wp-content/uploads/2023/07/Difference-Between-Lawyer-and-Attorney.jpg" alt="Vlog 3">
+    <div class="vlog-hover-text">
+      <h3>Vlog Title 3</h3>
+      <p>Short description or date here.</p>
+    </div>
+  </div>
+  <div class="vlog-card">
+    <img src="https://cdn-inbmd.nitrocdn.com/MSXgikZvodSLiKpZpZcUrlItUwERsEkl/assets/images/optimized/rev-e4f11d7/www.jjmccaskill.com/wp-content/uploads/2023/07/Difference-Between-Lawyer-and-Attorney.jpg" alt="Vlog 4">
+    <div class="vlog-hover-text">
+      <h3>Vlog Title 4</h3>
+      <p>Short description or date here.</p>
+    </div>
+  </div>
+  <div class="vlog-card">
+    <img src="https://cdn-inbmd.nitrocdn.com/MSXgikZvodSLiKpZpZcUrlItUwERsEkl/assets/images/optimized/rev-e4f11d7/www.jjmccaskill.com/wp-content/uploads/2023/07/Difference-Between-Lawyer-and-Attorney.jpg" alt="Vlog 5">
+    <div class="vlog-hover-text">
+      <h3>Vlog Title 5</h3>
+      <p>Short description or date here.</p>
+    </div>
+  </div>
+  
+</div>
+<button id="showMoreVlogs" class="luxury-btn" style="display:none;">Show More</button>
+
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  function isMobile() {
+    return window.innerWidth <= 768;
+  }
+  const vlogGallery = document.getElementById('vlogGallery');
+  const vlogCards = Array.from(vlogGallery.getElementsByClassName('vlog-card'));
+  const showMoreBtn = document.getElementById('showMoreVlogs');
+
+  function updateVlogDisplay() {
+    if (isMobile() && vlogCards.length > 3) {
+      vlogCards.forEach((card, idx) => {
+        card.style.display = idx < 3 ? '' : 'none';
+      });
+      showMoreBtn.style.display = 'block';
+    } else if (!isMobile() && vlogCards.length > 6) {
+      vlogCards.forEach((card, idx) => {
+        card.style.display = idx < 6 ? '' : 'none';
+      });
+      showMoreBtn.style.display = 'block';
+    } else {
+      vlogCards.forEach(card => card.style.display = '');
+      showMoreBtn.style.display = 'none';
+    }
+  }
+
+  showMoreBtn.addEventListener('click', function() {
+    vlogCards.forEach(card => card.style.display = '');
+    showMoreBtn.style.display = 'none';
+  });
+
+  updateVlogDisplay();
+  window.addEventListener('resize', updateVlogDisplay);
+});
+</script>
