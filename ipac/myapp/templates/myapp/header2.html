@@ -113,10 +113,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 5px 0;
+  padding-top:10px;
+    padding-bottom: 20px;
   background: linear-gradient(
     to bottom,
-    rgba(0,0,0,0.60) 0%,
+    rgba(0, 0, 0, 0.6) 0%,
     rgba(0,0,0,0.3) 60%,
     rgba(0,0,0,0.2) 90%,
     rgba(0,0,0,0) 100%
@@ -540,8 +541,8 @@ li {
   </div>
 </div>
  <header>
-  <div class="header-row" style="margin-top: 20px; background:transparent;">
-    <nav class="nav-combined">
+   <div class="header-row">
+   <nav class="nav-left">
   <ul>
     <li>
       <a href="{% url 'lawyer' %}" class="{% if request.resolver_match.url_name == 'lawyer' %}active{% endif %}">LAWYER</a>
@@ -552,6 +553,15 @@ li {
     <li>
       <a href="{% url 'author' %}" class="{% if request.resolver_match.url_name == 'author' %}active{% endif %}">AUTHOR</a>
     </li>
+  </ul>
+</nav>
+<div class="logo-center">
+       
+      <a href="{% url 'index' %}"><img src="{% static 'images/logoipac2.png' %}" alt="Logo"></a>
+  
+        </div>
+<nav class="nav-right">
+  <ul>
     <li>
       <a href="{% url 'rotarian' %}" class="{% if request.resolver_match.url_name == 'rotarian' %}active{% endif %}">ROTARIAN</a>
     </li>
@@ -561,13 +571,13 @@ li {
         <span class="dropdown-icon">▼</span>
       </a>
       <div class="dropdown-content">
-        <a href="{% url 'chevening_alumnus' %}" class="{% if request.resolver_match.url_name == 'chevening_alumnus' %}active{% endif %}">CHEVENING ALUMNUS</a>
+        <a href="chevening_alumnus" class="{% if request.resolver_match.url_name == 'chevening_alumnus' %}active{% endif %}">CHEVENING ALUMNUS</a>
         <a href="{% url 'eco_waste_advocate' %}" class="{% if request.resolver_match.url_name == 'eco_waste_advocate' %}active{% endif %}">ECO-WASTE ADVOCATE</a>
       </div>
     </li>
   </ul>
 </nav>
- 
+  
   </div>
 </header>
 
@@ -674,7 +684,7 @@ function toggleMobileNav() {
       // Insert mobile logo if not yet added
       if (!mobileLogoInserted) {
         const logo = document.createElement('img');
-        logo.src = "{% static 'images/branding.png' %}";
+        logo.src = "{% static 'images/logoipac2.png' %}";
         logo.alt = "Logo";
         logo.id = "mobileLogo";
         logo.className = "mobile-logo";

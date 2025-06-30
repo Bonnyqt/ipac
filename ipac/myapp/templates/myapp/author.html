@@ -9,10 +9,38 @@
 
     .showcase-images {
       display: flex;
+      flex-direction: column;
       gap: 20px;
-      flex: 1 1 30%;
+      flex: 1 1 45%;
       justify-content: center;
       align-items: center;
+    }
+
+    .showcase-images .top-img {
+      width: 100%;
+      max-width: 580px;
+      height: 330px;
+      object-fit: cover;
+      border-radius: 5px;
+      opacity: 0;
+      animation: fadeInLeft 1s forwards;
+    }
+
+    .showcase-images .bottom-row {
+      display: flex;
+      gap: 20px;
+      width: 100%;
+      justify-content: center;
+    }
+
+    .showcase-images .bottom-row img {
+      width: 100%;
+      max-width: 300px;
+      height: 230px;
+      object-fit: cover;
+      border-radius: 5px;
+      opacity: 0;
+      animation: fadeInRight 1s forwards 0.3s;
     }
 
     .showcase-images img {
@@ -227,21 +255,23 @@
 <body>
  {% include "myapp/header2.html" %}
 <div class="showcase">
-    <div class="showcase-text">
+  <div class="showcase-images">
+    <img src="{% static 'images/author.jpg' %}" alt="Image 1" class="top-img">
+    <div class="bottom-row">
+      <img src="{% static 'images/author2.jpg' %}" alt="Image 2">
+      <img src="{% static 'images/author3.jpg' %}" alt="Image 3">
+    </div>
+  </div>
+  <div class="showcase-text">
       <div class="elegant-line-text">ABOUT</div>
-  <h1 style="font-family: 'Playfair Display', serif; font-size: 70px; text-align: center; justify-content: center; align-items: center;">LAW ACADEME</h1>
+  <h1 style="font-family: 'Playfair Display', serif; font-size: 70px; text-align: center; justify-content: center; align-items: center;">AUTHOR</h1>
   <p style="text-align: center;">
-
-  
- Jayr is a Professor at the <a href="https://www.ustcivillaw.com" target="_blank" class="fancy-link">
-    University of Santo Tomas (UST)
-  </a> Faculty of Civil Law and San Sebastian Recoletos-College of Law where he teaches Commercial Law subjects (Data Privacy, Intellectual Property, Insurance, Transportation, and Competition Law). He is also a Professor at the UST Graduate School of Law where he teaches the course “Fintech and Other Commercial Intersections with Emerging Technologies.”
+ 
+  In 2023, Jayr authored the book <a href="https://www.lazada.com.ph/products/information-technology-law-and-policy-2023-by-atty-jay-r-c-ipac-i3746142910.html" target="_blank" class="fancy-link">
+    Information Technology, Law, and Policy
+  </a> He has also written articles on the topic of law and technology published by the International Comparative Legal Guide, Asia Legal Business, and the Asia Business Law Journal.
 </p>
   </div>
-  <div class="showcase-images">
-    <img src="{% static 'images/law academe.jpg' %}" alt="Image 1">
-  </div>
-  
 </div>
  {% include "myapp/footer.html" %}
 

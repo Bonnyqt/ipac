@@ -58,3 +58,13 @@ def lawyer(request):
     return render(request, 'myapp/lawyer.html')
 def law_academe(request):
     return render(request, 'myapp/law_academe.html')
+def author(request):
+    return render(request, 'myapp/author.html')
+def rotarian(request):
+    return render(request, 'myapp/rotarian.html')
+def beyond_the_bar(request):
+    return render(request, 'myapp/beyond.html')
+def chevening_alumnus(request):
+    return render(request, 'myapp/chevening.html')
+def eco_waste_advocate(request):
+    return render(request, 'myapp/ecowaste.html')
