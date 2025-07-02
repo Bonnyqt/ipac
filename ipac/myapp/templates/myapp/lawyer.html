@@ -3,7 +3,6 @@
     .showcase {
       display: flex;
       flex-wrap: wrap;
-      margin-top: 100px;
       padding: 40px;
     }
 
@@ -20,7 +19,7 @@
       max-width: 350px;
       height: 550px; /* Increased height */
       object-fit: cover;
-      border-radius: 5px;
+
       opacity: 0;
       animation: fadeInLeft 1s forwards;
     }
@@ -176,7 +175,7 @@
 }
 .fancy-link {
   position: relative;
-  color: #af7f10;
+  color: #0a042c;
   font-weight: 600;
   text-decoration: none;
   transition: color 0.3s ease;
@@ -227,20 +226,43 @@
 <body>
  {% include "myapp/header2.html" %}
 <div class="showcase">
-  <div class="showcase-images">
+  <div class="showcase-images" style="margin-top: 100px;">
     <img src="{% static 'images/lawyer2 (1).jpg' %}" alt="Image 1">
     <img src="{% static 'images/lawyer.jpg' %}" alt="Image 2">
   </div>
   <div class="showcase-text">
       <div class="elegant-line-text">ABOUT</div>
-  <h1 style="font-family: 'Playfair Display', serif; font-size: 70px; text-align: center; justify-content: center; align-items: center;">LAWYER</h1>
-  <p style="text-align: center;">
+  <h1 style="font-family: 'Playfair Display', serif; font-size: 70px; text-align: center; justify-content: center; align-items: center;color:#04041b;">LAWYER</h1>
+  <p style="text-align: center; font-family: 'Montserrat', serif; color:rgb(4 4 27);">
   Jayr is currently a Partner at
   <a href="https://www.divinalaw.com/the-lawyers/jay-r-c-ipac/" target="_blank" class="fancy-link">
     DivinaLaw.
   </a>
   His practice areas include intellectual property, data privacy / protection, cybercrime, e-commerce law, tech contracts review, financial technology, corporate and criminal litigation, and regulatory intersections of law and technology.
 </p>
+  </div>
+</div>
+<div class="showcase">
+  <div class="showcase-text">
+  <h1 style="font-family: 'Playfair Display', serif; font-size: 70px; text-align: center; justify-content: center; align-items: center;color:#04041b;">DATA PRIVACY PRACTITIONER</h1>
+  <p style="text-align: center; font-family: 'Montserrat', serif; color:rgb(4 4 27);">
+  As a data privacy practitioner, Jayr advises organizations, whether as controllers and/or processors, on how to properly carry out their processing activities through evolving data privacy regulations while maintaining operational agility, including designing and operationalizing privacy frameworks and translating legal requirements into actionable practices. Jayr is also an experienced speaker on privacy and compliance, having presented to audiences spanning private sector, public institutions, and industry groups.</p>
+  </div>
+  <div class="showcase-images">
+    <img src="https://cdn-inbmd.nitrocdn.com/MSXgikZvodSLiKpZpZcUrlItUwERsEkl/assets/images/optimized/rev-e4f11d7/www.jjmccaskill.com/wp-content/uploads/2023/07/Difference-Between-Lawyer-and-Attorney.jpg" alt="Image 1">
+    <img src="https://cdn-inbmd.nitrocdn.com/MSXgikZvodSLiKpZpZcUrlItUwERsEkl/assets/images/optimized/rev-e4f11d7/www.jjmccaskill.com/wp-content/uploads/2023/07/Difference-Between-Lawyer-and-Attorney.jpg" alt="Image 2">
+  </div>
+</div>
+
+<div class="showcase">
+  <div class="showcase-images">
+    <img src="https://cdn-inbmd.nitrocdn.com/MSXgikZvodSLiKpZpZcUrlItUwERsEkl/assets/images/optimized/rev-e4f11d7/www.jjmccaskill.com/wp-content/uploads/2023/07/Difference-Between-Lawyer-and-Attorney.jpg" alt="Image 1">
+    <img src="https://cdn-inbmd.nitrocdn.com/MSXgikZvodSLiKpZpZcUrlItUwERsEkl/assets/images/optimized/rev-e4f11d7/www.jjmccaskill.com/wp-content/uploads/2023/07/Difference-Between-Lawyer-and-Attorney.jpg" alt="Image 2">
+  </div>
+  <div class="showcase-text">
+  <h1 style="font-family: 'Playfair Display', serif; font-size: 70px; text-align: center; justify-content: center; align-items: center;color:#04041b;">INTELLECTUAL PROPERTY</h1>
+  <p style="text-align: center; font-family: 'Montserrat', serif; color:rgb(4 4 27);">
+ In the intellectual property field, Jayr has advised and represented parties involved in trademark and copyright disputes, including licensing agreements and infringement cases in various industries including music, food service, educational, manufacturing, pharmaceutical and fashion.  </p>
   </div>
 </div>
  {% include "myapp/footer.html" %}

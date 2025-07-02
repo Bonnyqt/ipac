@@ -1,0 +1,47 @@
+<style>
+.showcase-text {
+  background-color: #fffcf3;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  padding: 50px;
+}
+
+.elegant-line-text2 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Playfair Display', serif;
+  font-size: 20px;
+  color: #2c1d18;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  position: relative;
+}
+
+.elegant-line-text2::before,
+.elegant-line-text2::after {
+  content: "";
+  flex: 0.1;
+  height: 1px;
+  background: #2c1d18;
+  margin: 0 10px;
+  opacity: 0.5;
+}
+
+/* Make the <p> narrower */
+.showcase-text p.elegant-line-text2 {
+  max-width: 1000px;
+  margin: 20px auto 0;
+  font-size: 20px;
+  line-height: 1.6;
+  font-family: 'Montserrat', serif;
+  background-color: rgba(124, 124, 124, 0.308);
+  padding: 20px;
+}
+</style>
+
+<div class="showcase-text">
+  <div class="elegant-line-text" style="font-size:40px; padding-bottom: 20px;">A GOOD COUNSEL</div>
+  <p class="elegant-line-text2">"In the fast lane of innovation, the law is the guardrail—not the speed bump. Shape it, don’t fear it."</p>
+</div>

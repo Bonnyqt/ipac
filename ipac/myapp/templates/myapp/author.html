@@ -3,7 +3,6 @@
     .showcase {
       display: flex;
       flex-wrap: wrap;
-      margin-top: 100px;
       padding: 40px;
     }
 
@@ -21,7 +20,7 @@
       max-width: 580px;
       height: 330px;
       object-fit: cover;
-      border-radius: 5px;
+
       opacity: 0;
       animation: fadeInLeft 1s forwards;
     }
@@ -38,7 +37,7 @@
       max-width: 300px;
       height: 230px;
       object-fit: cover;
-      border-radius: 5px;
+
       opacity: 0;
       animation: fadeInRight 1s forwards 0.3s;
     }
@@ -48,7 +47,7 @@
       max-width: 350px;
       height: 550px; /* Increased height */
       object-fit: cover;
-      border-radius: 5px;
+
       opacity: 0;
       animation: fadeInLeft 1s forwards;
     }
@@ -254,7 +253,7 @@
 </head>
 <body>
  {% include "myapp/header2.html" %}
-<div class="showcase">
+<div class="showcase" style="margin-top: 100px;">
   <div class="showcase-images">
     <img src="{% static 'images/author.jpg' %}" alt="Image 1" class="top-img">
     <div class="bottom-row">
@@ -262,16 +261,28 @@
       <img src="{% static 'images/author3.jpg' %}" alt="Image 3">
     </div>
   </div>
-  <div class="showcase-text">
+  <div class="showcase-text" style="margin-top: 100px;">
       <div class="elegant-line-text">ABOUT</div>
   <h1 style="font-family: 'Playfair Display', serif; font-size: 70px; text-align: center; justify-content: center; align-items: center;">AUTHOR</h1>
-  <p style="text-align: center;">
+  <p style="text-align: center;  font-family: 'Montserrat', serif; ">
  
   In 2023, Jayr authored the book <a href="https://www.lazada.com.ph/products/information-technology-law-and-policy-2023-by-atty-jay-r-c-ipac-i3746142910.html" target="_blank" class="fancy-link">
     Information Technology, Law, and Policy
   </a> He has also written articles on the topic of law and technology published by the International Comparative Legal Guide, Asia Legal Business, and the Asia Business Law Journal.
 </p>
   </div>
+</div>
+
+<div class="showcase">
+    <div class="showcase-text">
+  <h1 style="font-family: 'Playfair Display', serif; font-size: 70px; text-align: center; justify-content: center; align-items: center;">BOOK</h1>
+  <p style="text-align: center;  font-family: 'Montserrat', serif; ">
+Jayr’s book contains 5 Chapters as follows: (i) Introduction to IT Law, (ii) E-commerce, (iii) Cybercrime, (iv) Data Privacy, and (v) Fintech. In its Preface, Jayr shares where and how this book grew out of: “This book began as a simple idea several years ago as the intersection of technology and the law caught my interest. I thought of writing an extensive article about such intersection. As my random materials about the subject grew, and as I started to slowly pour my thoughts into writing, the task began to look more and more impossible by the day: among others, I did not have the time to do what appeared to be an ambitious project; I was faced with a mountain. Then the pandemic came which “forced” me to find the time that seemed so elusive before. The idea of writing a book instead of an extensive article was born. Soon, I found myself spending more hours in front of my laptop: searching, reading, writing, and repeat. As fate would have it, I was privileged to be given the opportunity to pursue a masters’ degree in Information Technology and Intellectual Property Law at the University of East Anglia in United Kingdom under a Chevening scholarship. Apart from teaching the subject, private practice, and my own personal interests on the subject, the Chevening experience of living and studying in the UK admittedly took a significant part in shaping the final outcome of this book - an experience that the author would forever be grateful for.”</p>
+  </div>
+  <div class="showcase-images" style="width: 250px;height: auto;">
+    <img src="https://img.lazcdn.com/g/p/7a5796b2b29337c590061cd541229882.png_720x720q80.png" alt="Image 1">
+  </div>
+  
 </div>
  {% include "myapp/footer.html" %}
 

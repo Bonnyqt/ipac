@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ATTY. IPAC</title>
+  <title>JAY-R IPAC</title>
    <style>
     @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&family=Playfair+Display:wght@400;500&display=swap');
 
@@ -15,7 +15,9 @@
   overflow-x: hidden;
  
 }
-
+p{
+  font-family: 'Montserrat', sans-serif;
+}
     
     .header-row .nav-left,
     .header-row .nav-right {
@@ -55,15 +57,15 @@
       box-shadow: none;
     }
     .header-row ul li a:hover {
-      color: #af7f10;
-      text-shadow: 0 0 5px #af7f10, 0 0 10px #af7f10;
+      color: #ffffff;
+      text-shadow: 0 0 5px #04041b, 0 0 10px #04041b;
     }
     .header-row ul li a::after {
       content: "";
       position: absolute;
       width: 0%;
       height: 2px;
-      background: #af7f10;
+      background: #04041b;
       bottom: -5px;
       left: 0;
       transition: width 0.3s;
@@ -135,8 +137,8 @@
   
 
     .header-row ul li a.active {
-  color: #af7f10;
-  text-shadow: 0 0 5px #af7f10, 0 0 10px #af7f10;
+  color: #ffffff;
+  text-shadow: 0 0 5px #04041b, 0 0 10px #04041b;
 }
 .header-row ul li a.active::after {
   width: 100%;
@@ -307,7 +309,7 @@
   text-transform: uppercase;
   text-decoration: none;
 
-  border: 2px solid #af7f10; /* GOLD BORDER */
+  border: 2px solid #04041b; /* GOLD BORDER */
  
   background: transparent;
 
@@ -319,7 +321,7 @@
 }
 
 .luxury-btn:hover {
-  background-color: #af7f10;
+  background-color: #04041b;
   color: #fff;
   box-shadow: 0 0 16px rgba(175, 127, 16, 0.5);
 }
@@ -368,7 +370,7 @@
 }
 
 .mobile-sidebar ul li a:hover {
-  color: #af7f10;
+  color: #04041b;
 }
 
 .close-btn {
@@ -414,6 +416,7 @@
   position: absolute;
   background-color: #2c2c2c80;
   min-width: 160px;
+  margin-top: 4px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 1;
   transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
@@ -423,7 +426,6 @@
 .dropdown-content a {
   color: black;
   font-family: 'Montserrat', 'Playfair Display', serif;
-  font-size: 12px;
   padding: 12px 16px;
   text-decoration: none;
   display: block;
@@ -445,8 +447,6 @@ ul {
 li {
   position: relative;
 }
-
-
 
 
 .dropdown:hover .dropdown-content {
@@ -517,7 +517,7 @@ li {
 </nav>
 <div class="logo-center">
           <div class="sticky-logo">
-      <a href="{% url 'index' %}"><img src="{% static 'images/logoipac2.png' %}" alt="Logo"></a>
+      <a href="{% url 'index' %}"><img src="{% static 'images/ipaclogow.png' %}" alt="Logo"></a>
     </div>
         </div>
 <nav class="nav-right">
@@ -557,7 +557,7 @@ li {
 </nav>
 <div class="logo-center">
        
-      <a href="{% url 'index' %}"><img src="{% static 'images/logoipac2.png' %}" alt="Logo"></a>
+      <a href="{% url 'index' %}"><img src="{% static 'images/ipaclogow.png' %}" alt="Logo"></a>
   
         </div>
 <nav class="nav-right">
@@ -684,7 +684,7 @@ function toggleMobileNav() {
       // Insert mobile logo if not yet added
       if (!mobileLogoInserted) {
         const logo = document.createElement('img');
-        logo.src = "{% static 'images/logoipac2.png' %}";
+        logo.src = "{% static 'images/ipaclogow.png' %}";
         logo.alt = "Logo";
         logo.id = "mobileLogo";
         logo.className = "mobile-logo";

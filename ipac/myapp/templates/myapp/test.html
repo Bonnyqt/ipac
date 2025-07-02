@@ -1,0 +1,121 @@
+{% load static %}
+<style>
+  .lawyer-wrapper {
+  max-width: 1550px;
+  margin: auto;
+  padding: 20px;
+  font-family: "Segoe UI", sans-serif;
+}
+
+.lawyer-top {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.image-left
+{
+    flex: 1;
+  min-width: 280px; 
+}
+.image-right {
+  flex: 1.5;
+  min-width: 280px;
+}
+
+.image-left img,
+.image-right img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
+
+
+.about-text {
+  flex: 1;
+  text-align: center;
+  justify-content: center;
+
+}
+
+.about-text h5 {
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+  color: #555;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+}
+
+.about-text h1 {
+  font-size: 3rem;
+  margin: 0 0 20px;
+}
+
+.about-text p {
+  font-size: 1rem;
+  color: #333;
+  line-height: 1.7;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .about-top {
+    flex-direction: column;
+  }
+
+  .about-bottom {
+    flex-direction: column;
+  }
+
+  .about-text {
+    max-width: 100%;
+  }
+
+  .about-text h1 {
+    font-size: 2rem;
+  }
+}
+.elegant-line-text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Playfair Display', serif;
+  font-size: 20px;
+  color: #2c1d18;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  position: relative;
+  
+}
+
+.elegant-line-text::before,
+.elegant-line-text::after {
+  content: "";
+  flex: 0.1;
+  height: 1px;
+  background: #2c1d18;
+  margin: 0 10px;
+  opacity: 0.5;
+}
+
+</style>
+<div class="lawyer-wrapper">
+  <div class="lawyer-top">
+    <div class="image-left">
+      <img src="{% static 'images/author1.jpg'%}" alt="Left Design">
+      <div class="about-text">
+      <h5 class="elegant-line-text">BOLD DESIGN INNOVATIONS</h5>
+      <h1>DATA PRIVACY PRACTITIONER</h1>
+    </div>
+    </div>
+    <div class="image-right">
+      <img src="{% static 'images/author1.jpg'%}" alt="Right Building">
+       <p>
+        As a data privacy practitioner, Jayr advises organizations, whether as controllers and/or processors, on how to properly carry out their processing activities through evolving data privacy regulations while maintaining operational agility, including designing and operationalizing privacy frameworks and translating legal requirements into actionable practices. Jayr is also an experienced speaker on privacy and compliance, having presented to audiences spanning private sector, public institutions, and industry groups. </p>
+    </div>
+  </div>
+
+</div>
+</div>

@@ -13,11 +13,12 @@
   left: 50%;
   right: 50%;
   transform: translateX(-50%);
-  height: 650px; /* Increased height */
-  min-height: 500px; /* Optionally increase min-height */
+  height: 650px; 
+  min-height: 500px; 
   display: flex;
   align-items: center;
   justify-content: center;
+  
 }
 .slide img {
   width: 100vw;
@@ -54,7 +55,7 @@
   height: 100%;
   /* Black at top, transparent at bottom */
   background: linear-gradient(
-    to bottom,
+    to bottom,  
     rgba(0,0,0,0.80) 0%,
     rgba(0,0,0,0.6) 60%,
     rgba(0,0,0,0.30) 90%,
@@ -154,7 +155,23 @@
 .animated-text {
   animation: slideFadeIn 1s ease forwards;
 }
+.parallax-bg {
+    position: relative;
+    width: 100vw;
+    min-height: 650px;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    z-index: 0;
+    overflow: hidden;
+  }
+  @media (max-width: 900px) {
+    .parallax-bg {
+      background-attachment: scroll; /* fallback for mobile */
+    }
+  }
  </style>
+<div class="parallax-bg">
  <div class="slideshow-container">
   <!-- Centered logo that will disappear on scroll -->
   <div class="logo-center-slide" id="slideshowLogo">
@@ -217,4 +234,4 @@
       <span class="dot" onclick="showSlide(6)"></span>
     </div>
 </div>
-
+</div>
