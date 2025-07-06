@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manage Posts</title>
+  <style>
+    .vlog-gallery {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .vlog-card {
+      position: relative;
+      width: 300px;
+      border: 1px solid #ccc;
+      overflow: hidden;
+      border-radius: 10px;
+    }
+    .vlog-card img {
+      width: 100%;
+      height: auto;
+    }
+    .vlog-hover-text {
+      padding: 10px;
+    }
+    .new-post-banner {
+      position: absolute;
+      top: 0;
+      left: 0;
+      background: red;
+      color: white;
+      padding: 5px 10px;
+      font-weight: bold;
+      z-index: 2;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Add a New Vlog Post</h2>
+ <form method="POST" action="{% url 'manage_posts' %}" enctype="multipart/form-data">
+  {% csrf_token %}
+  
+  <label>Title:</label><br>
+  <input type="text" name="title" required><br><br>
+
+  <label>Description:</label><br>
+  <textarea name="description" rows="3"></textarea><br><br>
+
+  <label>Upload Image:</label><br>
+  <input type="file" name="image" accept="image/*" required><br><br>
+<br><br>
+
+  <button type="submit">Add Post</button>
+</form>
+
+  <hr>
+
+  <h2>All Posts</h2>
+  <div class="vlog-gallery" id="vlogGallery">
+    {% for post in posts %}
+      <div class="vlog-card">
+        {% if post.is_new %}
+          <div class="new-post-banner">NEW POST</div>
+        {% endif %}
+        <img src="{{ post.image_url }}" alt="{{ post.title }}">
+        <div class="vlog-hover-text">
+          <h3>{{ post.title }}</h3>
+          <p>{{ post.description }}</p>
+        </div>
+      </div>
+    {% empty %}
+      <p>No vlog posts found.</p>
+    {% endfor %}
+  </div>
+
+</body>
+</html>

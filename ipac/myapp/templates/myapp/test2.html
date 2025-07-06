@@ -1,18 +1,81 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Minimalist Rectangles</title>
-  <style>
+<style>
+@import url(https://fonts.googleapis.com/css?family=Exo:100);
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&family=Playfair+Display&display=swap');
 
-  </style>
-</head>
-<body>
-  <div class="shape rect1"></div>
-  <div class="shape rect2"></div>
-  <div class="shape rect3"></div>
-  <div class="shape rect4"></div>
-  <div class="shape rect5"></div>
-</body>
-</html>
+@keyframes bg-scrolling-reverse {
+  100% {
+    background-position: 50px 50px;
+  }
+}
+
+.test {
+  width: 98.6vw;
+  height: 40vh;
+  margin-top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #999;
+  font: 400 16px/1.5 exo, ubuntu, "segoe ui", helvetica, arial, sans-serif;
+  text-align: center;
+  background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAIAAACRXR/mAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAABnSURBVHja7M5RDYAwDEXRDgmvEocnlrQS2SwUFST9uEfBGWs9c97nbGtDcquqiKhOImLs/UpuzVzWEi1atGjRokWLFi1atGjRokWLFi1atGjRokWLFi1af7Ukz8xWp8z8AAAA//8DAJ4LoEAAlL1nAAAAAElFTkSuQmCC") repeat 0 0;
+  animation: bg-scrolling-reverse 2.32s infinite linear;
+}
+
+.showcase-text {
+  background-color: #fffcf3;
+  padding: 50px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  max-width: 900px;
+  width: 90%;
+}
+
+.elegant-line-text {
+  font-family: 'Playfair Display', serif;
+  font-size: 50px;
+  color: #2c1d18;
+  padding-bottom: 20px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.elegant-line-text2 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Playfair Display', serif;
+  font-size: 20px;
+  color: #2c1d18;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  position: relative;
+}
+
+.elegant-line-text2::before,
+.elegant-line-text2::after {
+  content: "";
+  flex: 0.1;
+  height: 1px;
+  background: #2c1d18;
+  margin: 0 10px;
+  opacity: 0.5;
+}
+
+
+/* Styling the quote <p> */
+.showcase-text p.elegant-line-text2 {
+  max-width: 1000px;
+  margin: 20px auto 0;
+  font-size: 20px;
+  line-height: 1.6;
+  font-family: 'Montserrat', sans-serif;
+  padding: 20px;
+}
+</style>
+
+<div class="test">
+  <div class="showcase-text">
+    <div class="elegant-line-text">A GOOD COUNSEL</div>
+     <p class="elegant-line-text2">"Action Leads To Clarity"</p>
+  </div>
+</div>

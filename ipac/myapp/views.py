@@ -9,9 +9,11 @@ from django.contrib import messages
 from django.utils.html import strip_tags
 from django.templatetags.static import static
 import os
+from django.utils.timezone import now
 from email.mime.image import MIMEImage
 def index(request):
-    return render(request, 'myapp/index.html')
+    posts = VlogPost.objects.all().order_by('-created_at')
+    return render(request, 'myapp/index.html', {'posts': posts})
 def about(request):
     return render(request, 'myapp/about.html')
 
@@ -68,3 +70,40 @@ def chevening_alumnus(request):
     return render(request, 'myapp/chevening.html')
 def eco_waste_advocate(request):
     return render(request, 'myapp/ecowaste.html')
+def admin(request):
+    return render(request, 'myapp/administrator/index.html')
+
+
+# ADMINISTRATOR
+
+from .models import VlogPost
+
+
+def manage_posts(request):
+    if request.method == 'POST':
+        title = request.POST.get('title')
+        description = request.POST.get('description')
+        image = request.FILES.get('image')
+
+        # Always mark new posts as "new" on creation
+        VlogPost.objects.create(
+            title=title,
+            description=description,
+            image=image,
+            is_new=True
+        )
+        return redirect('manage_posts')
+
+    posts = VlogPost.objects.all().order_by('-created_at')
+    today = now().date()
+
+    # Update any posts that are no longer new
+    for post in posts:
+        if post.is_new and post.created_at.date() != today:
+            post.is_new = False
+            post.save(update_fields=['is_new'])
+
+    return render(request, 'myapp/administrator/posts.html', {'posts': posts})
+def admin_dashboard(request):
+    posts = VlogPost.objects.all().order_by('-created_at')
+    return render(request, 'myapp/administrator/dashboard.html', {'posts': posts})

@@ -13,7 +13,7 @@
   left: 50%;
   right: 50%;
   transform: translateX(-50%);
-  height: 650px; 
+  height: 750px; 
   min-height: 500px; 
   display: flex;
   align-items: center;
@@ -22,7 +22,7 @@
 }
 .slide img {
   width: 100vw;
-  height: 650px; /* Match container height */
+  height: 750px; /* Match container height */
   object-fit: cover;
   display: block;
   border-radius: 0;
@@ -100,7 +100,7 @@
 }
 .slide-text {
   position: absolute;
-  top: 50%;
+  top: 36%;
   left: 40px;
   transform: translateY(-50%);
   z-index: 2;
@@ -117,19 +117,53 @@
 
 .slide-subtext {
   position: absolute;
-  top: calc(50% + 60px); /* Slightly below main title */
+  top: calc(36% + 100px); /* Slightly below main title */
   left: 40px;
   transform: translateY(-50%);
   z-index: 2;
   color: #ddd;
   font-family: 'Playfair Display', serif;
   font-size: 1rem;
-  margin-top: 30px;
+  
   font-weight: 400;
   text-align: left;
   text-shadow: 0 3px 16px rgba(0,0,0,0.4);
   max-width: 600px;
 }
+@media (max-width: 900px) {
+   .slide-text {
+  position: absolute;
+  top: 36%;
+  left: 40px;
+  transform: translateY(-50%);
+  z-index: 2;
+  color: #fff;
+  font-family: 'Playfair Display', serif;
+  font-size: 3rem;
+  font-weight: 500;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  text-shadow: 0 4px 24px rgba(0,0,0,0.35);
+  letter-spacing: 0.04em;
+  max-width: 1200px;
+  line-height: 1.2;
+}
+.slide-subtext {
+  position: absolute;
+  top: calc(36% + 100px); /* Slightly below main title */
+  transform: translateY(-50%);
+  z-index: 2;
+  color: #ddd;
+  font-family: 'Playfair Display', serif;
+  font-size: 0.87rem;
+  
+  font-weight: 400;
+  text-align: center;
+  text-shadow: 0 3px 16px rgba(0,0,0,0.4);
+  max-width: 600px;
+}
+  }
 @keyframes slideFadeIn {
   0% {
     opacity: 0;

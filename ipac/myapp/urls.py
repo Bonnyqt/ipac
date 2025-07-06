@@ -14,4 +14,7 @@ urlpatterns = [
     path('beyond_the_bar', views.beyond_the_bar, name='beyond_the_bar'),
     path('chevening_alumnus', views.chevening_alumnus, name='chevening_alumnus'),
     path('eco_waste_advocate', views.eco_waste_advocate, name='eco_waste_advocate'),
+    path('admin', views.admin, name='admin'),
+    path('dashboard/', views.admin_dashboard, name='admin_dashboard'),
+    path('manage-posts/', views.manage_posts, name='manage_posts'),
 ]

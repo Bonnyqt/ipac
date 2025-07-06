@@ -4,7 +4,7 @@
 .favorites-section {
   position: relative;
   background-color: #fffcf3;
-  padding: 40px 20px 20px;
+  padding: 40px 20px 60px;
   text-align: center;
   overflow: hidden;
 }
@@ -15,7 +15,8 @@
   align-items: center;
   justify-content: center;
   font-family: 'Playfair Display', serif;
-  font-size: 20px;
+  font-size: 50px;
+  padding-bottom: 20px;
   color: #2c1d18;
   text-transform: uppercase;
   letter-spacing: 2px;
@@ -151,49 +152,26 @@
   }
 }
 </style>
+
 <div class="favorites-section">
   <div class="elegant-line-text">VLOGS</div>
-  <h1 class="background-text" style="font-family: 'Playfair Display', serif; font-size: 50px;">LATEST</h1>
 
-  <div class="vlog-gallery" id="vlogGallery">
-  <div class="vlog-card">
-    <div class="new-post-banner">NEW POST</div>
-    <img src="https://cdn-inbmd.nitrocdn.com/MSXgikZvodSLiKpZpZcUrlItUwERsEkl/assets/images/optimized/rev-e4f11d7/www.jjmccaskill.com/wp-content/uploads/2023/07/Difference-Between-Lawyer-and-Attorney.jpg" alt="Vlog 1">
-    <div class="vlog-hover-text">
-      <h3>Vlog Title 1</h3>
-      <p>Short description or date here.</p>
-    </div>
+<div class="vlog-gallery" id="vlogGallery">
+    {% for post in posts %}
+      <div class="vlog-card">
+        {% if post.is_new %}
+          <div class="new-post-banner">NEW POST</div> 
+        {% endif %}
+       <img src="{{ post.image.url }}" alt="{{ post.title }}">
+        <div class="vlog-hover-text">
+          <h3>{{ post.title }}</h3>
+          <p>{{ post.description }}</p>
+        </div>
+      </div>
+    {% empty %}
+      <p>No vlog posts found.</p>
+    {% endfor %}
   </div>
-  <div class="vlog-card">
-    <img src="https://cdn-inbmd.nitrocdn.com/MSXgikZvodSLiKpZpZcUrlItUwERsEkl/assets/images/optimized/rev-e4f11d7/www.jjmccaskill.com/wp-content/uploads/2023/07/Difference-Between-Lawyer-and-Attorney.jpg" alt="Vlog 2">
-    <div class="vlog-hover-text">
-      <h3>Vlog Title 2</h3>
-      <p>Short description or date here.</p>
-    </div>
-  </div>
-  <div class="vlog-card">
-    <img src="https://cdn-inbmd.nitrocdn.com/MSXgikZvodSLiKpZpZcUrlItUwERsEkl/assets/images/optimized/rev-e4f11d7/www.jjmccaskill.com/wp-content/uploads/2023/07/Difference-Between-Lawyer-and-Attorney.jpg" alt="Vlog 3">
-    <div class="vlog-hover-text">
-      <h3>Vlog Title 3</h3>
-      <p>Short description or date here.</p>
-    </div>
-  </div>
-  <div class="vlog-card">
-    <img src="https://cdn-inbmd.nitrocdn.com/MSXgikZvodSLiKpZpZcUrlItUwERsEkl/assets/images/optimized/rev-e4f11d7/www.jjmccaskill.com/wp-content/uploads/2023/07/Difference-Between-Lawyer-and-Attorney.jpg" alt="Vlog 4">
-    <div class="vlog-hover-text">
-      <h3>Vlog Title 4</h3>
-      <p>Short description or date here.</p>
-    </div>
-  </div>
-  <div class="vlog-card">
-    <img src="https://cdn-inbmd.nitrocdn.com/MSXgikZvodSLiKpZpZcUrlItUwERsEkl/assets/images/optimized/rev-e4f11d7/www.jjmccaskill.com/wp-content/uploads/2023/07/Difference-Between-Lawyer-and-Attorney.jpg" alt="Vlog 5">
-    <div class="vlog-hover-text">
-      <h3>Vlog Title 5</h3>
-      <p>Short description or date here.</p>
-    </div>
-  </div>
-  
-</div>
 <button id="showMoreVlogs" class="luxury-btn" style="display:none;">Show More</button>
 
 </div>
