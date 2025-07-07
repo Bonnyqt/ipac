@@ -85,7 +85,7 @@
       box-shadow: none;
     }
     .header-row .logo-center img {
-      height: 70px;
+      height: 60px;
       width: auto;
       display: block;
       background: transparent;
@@ -519,7 +519,7 @@ li {
 </nav>
 <div class="logo-center">
           <div class="sticky-logo">
-      <a href="{% url 'index' %}"><img src="{% static 'images/ipaclogow.png' %}" alt="Logo"></a>
+      <a href="{% url 'index' %}"><img src="{% static 'images/logow.png' %}" alt="Logo"></a>
     </div>
         </div>
 <nav class="nav-right">
@@ -677,7 +677,7 @@ function toggleMobileNav() {
       // Insert mobile logo if not yet added
       if (!mobileLogoInserted) {
         const logo = document.createElement('img');
-        logo.src = "{% static 'images/ipaclogow.png' %}";
+        logo.src = "{% static 'images/logow.png' %}";
         logo.alt = "Logo";
         logo.id = "mobileLogo";
         logo.className = "mobile-logo";
