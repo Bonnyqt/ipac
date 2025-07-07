@@ -34,7 +34,7 @@ p{
     }
     .header-row ul {
       display: flex;
-      gap: 24px;
+      gap: 84px;
       list-style: none;
       margin: 0;
       padding: 0;
@@ -57,15 +57,15 @@ p{
       box-shadow: none;
     }
     .header-row ul li a:hover {
-      color: #ffffff;
-      text-shadow: 0 0 5px #04041b, 0 0 10px #04041b;
+      color: #af7f10;
+      text-shadow: 0 0 5px #af7f10, 0 0 10px #af7f10;
     }
     .header-row ul li a::after {
       content: "";
       position: absolute;
       width: 0%;
       height: 2px;
-      background: #04041b;
+      background: #af7f10;
       bottom: -5px;
       left: 0;
       transition: width 0.3s;
@@ -137,8 +137,8 @@ p{
   
 
     .header-row ul li a.active {
-  color: #ffffff;
-  text-shadow: 0 0 5px #04041b, 0 0 10px #04041b;
+  color: #af7f10;
+  text-shadow: 0 0 5px #af7f10, 0 0 10px #af7f10;
 }
 .header-row ul li a.active::after {
   width: 100%;
@@ -206,40 +206,39 @@ p{
   pointer-events: none;
 }
 
-/* Left goes left, right goes right */
+
 .sticky-header .nav-left {
-  transform: translateX(40px); /* Comes from center toward left */
+  transform: translateX(40px); 
 }
 
 .sticky-header .nav-right {
-  transform: translateX(-40px); /* Comes from center toward right */
+  transform: translateX(-40px);
 }
 
-/* When sticky is active: navs move outward */
+
 .sticky-header.show .nav-left {
   opacity: 1;
-  transform: translateX(0); /* Arrives in left */
+  transform: translateX(0);
   pointer-events: auto;
 }
 
 .sticky-header.show .nav-right {
   opacity: 1;
-  transform: translateX(0); /* Arrives in right */
+  transform: translateX(0); 
   pointer-events: auto;
 }
 .mobile-header {
   display: none;
 }
 
-/* Mobile Styles */
+
 @media screen and (max-width: 768px) {
-  /* Hide desktop headers */
+
   header,
   .sticky-header {
     display: none !important;
   }
 
-  /* Show mobile header */
   .mobile-header {
     display: flex;
     position: fixed;
@@ -266,7 +265,7 @@ p{
   height: 100%;
 }
 
-/* Center the logo */
+
 .mobile-logo {
   position: absolute;
   top: 50%;

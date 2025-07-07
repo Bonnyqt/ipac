@@ -110,28 +110,33 @@
 
 
 
-  <div class="login-card">
-    <h2>Welcome,<br> <span style="font-size: 30px;">Atty. Jay-r Ipac</span></h2>
-    <form>
-      <div class="input-group">
-        <label for="email">Email</label>
-        <input type="email" id="email" placeholder="" required />
-      </div>
+ <div class="login-card">
+  <h2>Welcome,<br> <span style="font-size: 30px;">Atty. Jay-r Ipac</span></h2>
+  <form method="post">
+    {% csrf_token %}
+    {% if error %}
+      <p style="color: red; text-align: center;">{{ error }}</p>
+    {% endif %}
+    
+    <div class="input-group">
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" required />
+    </div>
 
-      <div class="input-group">
-        <label for="password">Password</label>
-        <input type="password" id="password" placeholder="" required />
-      </div>
+    <div class="input-group">
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" required />
+    </div>
 
-<div style="display: flex; justify-content: center; ">
-  <button type="submit" class="luxury-btn2">Login</button>
+    <div style="display: flex; justify-content: center;">
+      <button type="submit" class="luxury-btn2">Login</button>
+    </div>
+
+    <div class="forgot-password" style="text-align: center; margin-top: 30px; font-size: 0.9rem; opacity: 0.8;">
+      <a href="#" style="color: #000000; text-decoration: underline; font-weight: 500;">Forgot Password?</a>
+    </div>
+  </form>
 </div>
-<div class="forgot-password" style="text-align: center; margin-top: 30px; font-size: 0.9rem; opacity: 0.8;">
-  <a href="#" style="color: #000000; text-decoration: underline; font-weight: 500;">Forgot Password?</a>
-</div>
-    </form>
-  
-  </div>
 
 
  {% include "myapp/footer.html" %}

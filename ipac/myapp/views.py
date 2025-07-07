@@ -76,13 +76,50 @@ def admin(request):
 
 # ADMINISTRATOR
 
+from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required, user_passes_test
+from django.contrib.auth.models import User
+from django.utils.timezone import now
 from .models import VlogPost
+from django.http import HttpResponseForbidden
+from django.shortcuts import get_object_or_404, redirect
+
+def admin(request):
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+
+        try:
+            user = User.objects.get(email=email)
+        except User.DoesNotExist:
+            return render(request, 'myapp/administrator/index.html', {
+                'error': 'No user found with that email.'
+            })
 
 
+        user = authenticate(request, username=user.username, password=password)
+
+        if user is None:
+            return render(request, 'myapp/administrator/index.html', {
+                'error': 'Incorrect password.'
+            })
+
+        if not user.is_superuser:
+            return render(request, 'myapp/administrator/index.html', {
+                'error': 'You are not authorized to access this page.'
+            })
+
+        # All good
+        login(request, user)
+        return redirect('admin_dashboard')
+
+    return render(request, 'myapp/administrator/index.html')
 def manage_posts(request):
     if request.method == 'POST':
         title = request.POST.get('title')
         description = request.POST.get('description')
+        url = request.POST.get('url')
         image = request.FILES.get('image')
 
         # Always mark new posts as "new" on creation
@@ -90,9 +127,10 @@ def manage_posts(request):
             title=title,
             description=description,
             image=image,
+            url=url,
             is_new=True
         )
-        return redirect('manage_posts')
+        return redirect('admin_dashboard')
 
     posts = VlogPost.objects.all().order_by('-created_at')
     today = now().date()
@@ -104,6 +142,24 @@ def manage_posts(request):
             post.save(update_fields=['is_new'])
 
     return render(request, 'myapp/administrator/posts.html', {'posts': posts})
+
+@login_required
+@user_passes_test(lambda u: u.is_superuser)
+def delete_post(request, post_id):
+    post = get_object_or_404(VlogPost, id=post_id)
+    if request.method == 'POST':
+        post.delete()
+    return redirect('admin_dashboard')  # or wherever you want to go back
+
+def superuser_required(view_func):
+    @login_required
+    def _wrapped_view(request, *args, **kwargs):
+        if not request.user.is_superuser:
+            return HttpResponseForbidden("You are not authorized to access this page.")
+        return view_func(request, *args, **kwargs)
+    return _wrapped_view
+
+@superuser_required
 def admin_dashboard(request):
     posts = VlogPost.objects.all().order_by('-created_at')
     return render(request, 'myapp/administrator/dashboard.html', {'posts': posts})
