@@ -78,22 +78,28 @@
   <div class="form-wrapper">
     <h2>Add a New Vlog Post</h2>
     <form method="POST" action="{% url 'manage_posts' %}" enctype="multipart/form-data">
-      {% csrf_token %}
-      
-      <label>Title:</label>
-      <input type="text" name="title" required>
+  {% csrf_token %}
+  
+  <label>Title:</label>
+  <input type="text" name="title" required>
 
-      <label>Description:</label>
-      <textarea name="description" rows="3"></textarea>
+  <label>Description:</label>
+<textarea name="description" rows="3"></textarea>
 
-      <label>URL:</label>
-      <input type="url" name="url" placeholder="Video URL" required>
+  <label>URL:</label>
+  <input type="url" name="url" placeholder="Video URL">
 
-      <label>Upload Image:</label>
-      <input type="file" name="image" accept="image/*" required>
+  <label>Upload Image:</label>
+  <input type="file" name="image" accept="image/*" required>
+  <label>
+    <input type="checkbox" name="is_article">
+    Article?
+  </label><br><br>
+ 
 
-      <button type="submit">Add Post</button>
-    </form>
+  <button type="submit">Add Post</button>
+</form>
+
   </div>
 
   <hr>
@@ -101,4 +107,15 @@
   {% include "myapp/administrator/admin_vlogs.html" %}
 
 </body>
+<script src="https://cdn.tiny.cloud/1/itqdp94i9u9yudvko3lgv2zdwa0keqwrwk4zvau9goesxhzx/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+<script>
+  tinymce.init({
+    selector: 'textarea[name="description"]',
+    height: 300,
+    menubar: false,
+    plugins: 'link image code lists',
+    toolbar: 'undo redo | bold italic underline | alignleft aligncenter alignright | bullist numlist | link image | code',
+    branding: false
+  });
+</script>
 </html>

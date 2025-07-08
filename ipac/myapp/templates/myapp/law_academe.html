@@ -1,11 +1,23 @@
 {% load static %}
   <style>
-    .showcase {
-      display: flex;
-      flex-wrap: wrap;
-      margin-top: 100px;
-      padding: 40px;
-    }
+   .showcase {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 40px;
+  background-color: #fff; /* or any background */
+  overflow: hidden; /* hide image overflow */
+  z-index: 0;
+}
+.bg-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 700px;
+  opacity: 0.05; 
+  z-index: -1;
+  pointer-events: none; 
+}
 
     .showcase-images {
       display: flex;
@@ -152,28 +164,7 @@
           "img3";
       }
     }
-.elegant-line-text {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: 'Playfair Display', serif;
-  font-size: 70px;
-  color: #2c1d18;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  position: relative;
-  
-}
 
-.elegant-line-text::before,
-.elegant-line-text::after {
-  content: "";
-  flex: 0.1;
-  height: 1px;
-  background: #2c1d18;
-  margin: 0 10px;
-  opacity: 0.5;
-}
 .fancy-link {
   position: relative;
   color: #0a042c;
@@ -221,17 +212,78 @@
     transform: scale(1);
   }
 }
+.image-wrapper {
+      position: relative;
+      width: 100%;
+      height: 30vh;
+      overflow: hidden;
+    }
 
+.image-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+ .image-wrapper::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.562); /* Dim effect */
+      z-index: 1;
+    }
+    .elegant-line-text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Playfair Display', serif;
+  font-size: 50px;
+  color: #fafafa;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  position: relative;
+}
+
+.elegant-line-text::before,
+.elegant-line-text::after {
+  content: "";
+  flex: 0.1;
+  height: 1px;
+  background: #ffffff;
+  margin: 0 10px;
+  opacity: 0.5;
+}
+
+/* Add this to center the elegant-line-text absolutely */
+.centered-overlay {
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  z-index: 4;
+  pointer-events: none;
+  text-align: center;
+}
   </style>
 </head>
 <body>
  {% include "myapp/header2.html" %}
+  <div class="image-wrapper">
+  <img src="https://images.rawpixel.com/image_800/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvcm0yODMtbnVubnktMjU0LmpwZw.jpg" alt="Article Image">
+  <div class="elegant-line-text centered-overlay">LAW ACADEME</div>
+</div>
 <div class="showcase">
+    <img src="{% static 'images/backgroundright.png' %}" class="bg-img" alt="">
     <div class="showcase-text">
-  <div class="elegant-line-text">LAW ACADEME</div>
+<div class="img-container" style="justify-content: center; text-align: center;align-items: center; padding: 20px  ;">
+  <img src="https://upload.wikimedia.org/wikipedia/en/thumb/2/24/Seal_of_the_University_of_Santo_Tomas.svg/1200px-Seal_of_the_University_of_Santo_Tomas.svg.png" style="width: 200px; height: auto;" alt=""></div>
    <p style="text-align: center;  font-family: 'Montserrat', serif; ">
-
-  
+ 
  Jayr is a Professor at the <a href="https://www.ustcivillaw.com" target="_blank" class="fancy-link">
     University of Santo Tomas (UST)
   </a> Faculty of Civil Law and San Sebastian Recoletos-College of Law where he teaches Commercial Law subjects (Data Privacy, Intellectual Property, Insurance, Transportation, and Competition Law). He is also a Professor at the UST Graduate School of Law where he teaches the course “Fintech and Other Commercial Intersections with Emerging Technologies.” Jayr is also an MCLE lecturer on the subject of data privacy and an accredited lecturer of the Center for Global Best Practices.

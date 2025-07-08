@@ -1,11 +1,26 @@
 {% load static %}
   <style>
-    .showcase {
-      display: flex;
-      flex-wrap: wrap;
-      padding: 40px;
-    }
-
+    html {
+  scroll-behavior: smooth;
+}
+   .showcase {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 40px;
+  background-color: #fff; /* or any background */
+  overflow: hidden; /* hide image overflow */
+  z-index: 0;
+}
+.bg-img {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 700px;
+  opacity: 0.05; 
+  z-index: -1;
+  pointer-events: none; 
+}
     .showcase-images {
       display: flex;
       flex-direction: column;
@@ -184,12 +199,11 @@
   align-items: center;
   justify-content: center;
   font-family: 'Playfair Display', serif;
-  font-size: 70px;
-  color: #2c1d18;
+  font-size: 50px;
+  color: #fafafa;
   text-transform: uppercase;
   letter-spacing: 2px;
   position: relative;
-  
 }
 
 .elegant-line-text::before,
@@ -197,9 +211,21 @@
   content: "";
   flex: 0.1;
   height: 1px;
-  background: #2c1d18;
+  background: #ffffff;
   margin: 0 10px;
   opacity: 0.5;
+}
+
+/* Add this to center the elegant-line-text absolutely */
+.centered-overlay {
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  z-index: 4;
+  pointer-events: none;
+  text-align: center;
 }
 .fancy-link {
   position: relative;
@@ -248,12 +274,41 @@
     transform: scale(1);
   }
 }
+.image-wrapper {
+      position: relative;
+      width: 100%;
+      height: 30vh;
+      overflow: hidden;
+    }
+
+.image-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+ .image-wrapper::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.562); /* Dim effect */
+      z-index: 1;
+    }
 
   </style>
 </head>
 <body>
  {% include "myapp/header2.html" %}
-<div class="showcase" style="margin-top: 100px;">
+  <div class="image-wrapper">
+  <img src="https://images.rawpixel.com/image_800/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvcm0yODMtbnVubnktMjU0LmpwZw.jpg" alt="Article Image">
+  <div class="elegant-line-text centered-overlay">AUTHOR</div>
+</div>
+<div class="showcase">
+    <img src="{% static 'images/background.png' %}" class="bg-img" alt="">
   <div class="showcase-images">
     <img src="{% static 'images/author.jpg' %}" alt="Image 1" class="top-img">
     <div class="bottom-row">
@@ -262,7 +317,8 @@
     </div>
   </div>
   <div class="showcase-text" style="margin-top: 100px;">
-      <div class="elegant-line-text">AUTHOR</div>
+    <div class="img-container" style="justify-content: center; text-align: center;align-items: center; padding: 20px  ;">
+  <img src="https://central.com.ph/wp-content/uploads/2024/03/logosystem-1024x338.png" style="width: 300px; height: auto;" alt=""></div>
  <p style="text-align: center;  font-family: 'Montserrat', serif; ">
  
   In 2023, Jayr authored the book <a href="https://www.lazada.com.ph/products/information-technology-law-and-policy-2023-by-atty-jay-r-c-ipac-i3746142910.html" target="_blank" class="fancy-link">
@@ -274,9 +330,11 @@
 
 <div class="showcase">
     <div class="showcase-text">
-         <div class="elegant-line-text">BOOK</div>
+         <div class="elegant-line-text" style="color: black;">BOOK</div>
    <p style="text-align: center;  font-family: 'Montserrat', serif; ">
-Jayr’s book contains 5 Chapters as follows: (i) Introduction to IT Law, (ii) E-commerce, (iii) Cybercrime, (iv) Data Privacy, and (v) Fintech. In its Preface, Jayr shares where and how this book grew out of: “This book began as a simple idea several years ago as the intersection of technology and the law caught my interest. I thought of writing an extensive article about such intersection. As my random materials about the subject grew, and as I started to slowly pour my thoughts into writing, the task began to look more and more impossible by the day: among others, I did not have the time to do what appeared to be an ambitious project; I was faced with a mountain. Then the pandemic came which “forced” me to find the time that seemed so elusive before. The idea of writing a book instead of an extensive article was born. Soon, I found myself spending more hours in front of my laptop: searching, reading, writing, and repeat. As fate would have it, I was privileged to be given the opportunity to pursue a masters’ degree in Information Technology and Intellectual Property Law at the University of East Anglia in United Kingdom under a Chevening scholarship. Apart from teaching the subject, private practice, and my own personal interests on the subject, the Chevening experience of living and studying in the UK admittedly took a significant part in shaping the final outcome of this book - an experience that the author would forever be grateful for.” For Book Inquiries, use the Contact Form to send a message.</p>
+Jayr’s book contains 5 Chapters as follows: (i) Introduction to IT Law, (ii) E-commerce, (iii) Cybercrime, (iv) Data Privacy, and (v) Fintech. In its Preface, Jayr shares where and how this book grew out of: “This book began as a simple idea several years ago as the intersection of technology and the law caught my interest. I thought of writing an extensive article about such intersection. As my random materials about the subject grew, and as I started to slowly pour my thoughts into writing, the task began to look more and more impossible by the day: among others, I did not have the time to do what appeared to be an ambitious project; I was faced with a mountain. Then the pandemic came which “forced” me to find the time that seemed so elusive before. The idea of writing a book instead of an extensive article was born. Soon, I found myself spending more hours in front of my laptop: searching, reading, writing, and repeat. As fate would have it, I was privileged to be given the opportunity to pursue a masters’ degree in Information Technology and Intellectual Property Law at the University of East Anglia in United Kingdom under a Chevening scholarship. Apart from teaching the subject, private practice, and my own personal interests on the subject, the Chevening experience of living and studying in the UK admittedly took a significant part in shaping the final outcome of this book - an experience that the author would forever be grateful for.” For Book Inquiries, use the <a href="#contact-form" class="fancy-link">
+    Contact Form
+  </a> to send a message.</p>
   </div>
   <div class="showcase-images" style="width: 250px;height: auto;">
     <img src="https://img.lazcdn.com/g/p/7a5796b2b29337c590061cd541229882.png_720x720q80.png" alt="Image 1">

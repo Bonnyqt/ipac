@@ -1,21 +1,31 @@
 {% load static %}
   <style>
-    .showcase {
-      display: flex;
-      flex-wrap: wrap;
-      margin-top: 100px;
-      padding: 40px;
-    }
-
-    .showcase-images {
+   .showcase {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 40px;
+  background-color: #fff; /* or any background */
+  overflow: hidden; /* hide image overflow */
+  z-index: 0;
+}
+.bg-img {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 700px;
+  opacity: 0.05; 
+  z-index: -1;
+  pointer-events: none; 
+}
+  .showcase-images {
       display: flex;
       flex-direction: column;
       gap: 20px;
-      flex: 1 1 45%;
+      flex: 1 1 40%;
       justify-content: center;
       align-items: center;
     }
-
     .showcase-images .top-img {
       width: 100%;
       max-width: 580px;
@@ -249,12 +259,73 @@
     transform: scale(1);
   }
 }
+.image-wrapper {
+      position: relative;
+      width: 100%;
+      height: 30vh;
+      overflow: hidden;
+    }
 
+.image-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+ .image-wrapper::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.562); /* Dim effect */
+      z-index: 1;
+    }
+.elegant-line-text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Playfair Display', serif;
+  font-size: 50px;
+  color: #fafafa;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  position: relative;
+}
+
+.elegant-line-text::before,
+.elegant-line-text::after {
+  content: "";
+  flex: 0.1;
+  height: 1px;
+  background: #ffffff;
+  margin: 0 10px;
+  opacity: 0.5;
+}
+
+/* Add this to center the elegant-line-text absolutely */
+.centered-overlay {
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  z-index: 4;
+  pointer-events: none;
+  text-align: center;
+}
   </style>
 </head>
 <body>
  {% include "myapp/header2.html" %}
+  <div class="image-wrapper">
+  <img src="https://images.rawpixel.com/image_800/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvcm0yODMtbnVubnktMjU0LmpwZw.jpg" alt="Article Image">
+  <div class="elegant-line-text centered-overlay">BEYOND THE BAR</div>
+</div>
 <div class="showcase">
+   <img src="{% static 'images/background.png' %}" class="bg-img" alt="">
   <div class="showcase-images">
     <img src="{% static 'images/BEYOND THE BAR.jpg' %}" alt="Image 1" class="top-img">
     <div class="bottom-row">
@@ -263,7 +334,7 @@
     </div>
   </div>
   <div class="showcase-text">
-      <div class="elegant-line-text">BEYOND THE BAR</div>
+
  <p style="text-align: center;  font-family: 'Montserrat', serif; ">
 TECHNOLOGY AND LAW – Jayr is a thought partner and respected voice in the field of regulatory intersections of technology and the law, including blockchain and artificial intelligence. For instance, in April, Jayr spoke at an event organized by the Department of Trade and Industry on Model Law on Electronic Transferable Records. Last May, Jayr also shared his thoughts at a legal symposium (on the intersection of law, artificial intelligence, and innovation) organized by Sigma Rho Fraternity and held at the University of the Philippines. For speaking engagements or inquiries, please use the contact form to request availability. 
 </p>

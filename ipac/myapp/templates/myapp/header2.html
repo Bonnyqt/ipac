@@ -55,6 +55,7 @@ p{
       background: transparent;
       border: none;
       box-shadow: none;
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 1);
     }
     .header-row ul li a:hover {
       color: #af7f10;
@@ -78,7 +79,7 @@ p{
       display: flex;
       justify-content: center;
       align-items: center;
-      margin: 0 40px;
+      margin: 0 80px;
       background: transparent;
       border: none;
       box-shadow: none;
@@ -115,7 +116,7 @@ p{
   display: flex;
   align-items: center;
   justify-content: center;
-  padding-top:10px;
+  padding-top:20px;
     padding-bottom: 20px;
   background: linear-gradient(
     to bottom,
@@ -132,9 +133,13 @@ p{
   border: none;
   box-shadow: none;
   margin-bottom: 0;
+   border-bottom: 1px solid rgba(0, 0, 0, 0.3); 
+  backdrop-filter: blur(10px); 
+  -webkit-backdrop-filter: blur(10px); 
+  background-color: rgba(255, 255, 255, 0.7); 
 }
    
-  
+
 
     .header-row ul li a.active {
   color: #af7f10;
@@ -465,6 +470,9 @@ li {
 .dropdown:hover .dropdown-icon {
   transform: rotate(180deg);
 }
+.logo-img {
+  filter: drop-shadow(1px 1px 3px rgba(0, 0, 0, 0.5));
+}
   </style>
 </head>
 <body>
@@ -500,7 +508,7 @@ li {
   </div>
 </div>
   <div class="sticky-header" id="stickyHeader">
-  <div class="header-row">
+  <div class="header-row" style="background: transparent;">
    <nav class="nav-left">
   <ul>
     <li>
@@ -516,7 +524,8 @@ li {
 </nav>
 <div class="logo-center">
           <div class="sticky-logo">
-      <a href="{% url 'index' %}"><img src="{% static 'images/logow.png' %}" alt="Logo"></a>
+    <a href="{% url 'index' %}"><img src="{% static 'images/bradingw.png' %}" alt="Logo" class="logo-img"></a>
+  
     </div>
         </div>
 <nav class="nav-right">
@@ -540,7 +549,7 @@ li {
   </div>
 </div>
  <header>
-   <div class="header-row">
+   <div class="header-row" style="background: transparent;">
    <nav class="nav-left">
   <ul>
     <li>
@@ -556,7 +565,7 @@ li {
 </nav>
 <div class="logo-center">
        
-      <a href="{% url 'index' %}"><img src="{% static 'images/logow.png' %}" alt="Logo"></a>
+      <a href="{% url 'index' %}"><img src="{% static 'images/bradingw.png' %}" alt="Logo" class="logo-img"></a>
   
         </div>
 <nav class="nav-right">
@@ -683,7 +692,7 @@ function toggleMobileNav() {
       // Insert mobile logo if not yet added
       if (!mobileLogoInserted) {
         const logo = document.createElement('img');
-        logo.src = "{% static 'images/logow.png' %}";
+        logo.src = "{% static 'images/bradingw.png' %}";
         logo.alt = "Logo";
         logo.id = "mobileLogo";
         logo.className = "mobile-logo";

@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-kkb^g9c&-fcq%8vb_!r#(yont@)squq%_*a09-axtzes*gqgh^
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '192.168.1.6']
 
 
 # Application definition
@@ -111,10 +111,10 @@ EMAIL_HOST_PASSWORD = 'ktey rmca lgyk cqrq'
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
+TIME_ZONE = 'Asia/Manila'
 USE_TZ = True
 
 

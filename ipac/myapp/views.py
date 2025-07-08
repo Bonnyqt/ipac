@@ -14,8 +14,7 @@ from email.mime.image import MIMEImage
 def index(request):
     posts = VlogPost.objects.all().order_by('-created_at')
     return render(request, 'myapp/index.html', {'posts': posts})
-def about(request):
-    return render(request, 'myapp/about.html')
+
 
 
 def send_email(request):
@@ -70,6 +69,27 @@ def chevening_alumnus(request):
     return render(request, 'myapp/chevening.html')
 def eco_waste_advocate(request):
     return render(request, 'myapp/ecowaste.html')
+def view_article(request, post_id):
+    post = get_object_or_404(VlogPost, id=post_id, is_article=True)
+    return render(request, 'myapp/articles.html', {'post': post})
+from django.shortcuts import render
+from itertools import groupby
+from operator import attrgetter
+from .models import VlogPost
+
+def latest(request):
+    posts = VlogPost.objects.all().order_by('created_at')
+    grouped_posts = []
+
+    for date, items in groupby(posts, key=lambda p: p.created_at.date()):
+        grouped_posts.append((date, list(items)))
+
+    return render(request, 'myapp/latest.html', {'grouped_posts': grouped_posts})
+
+ 
+
+
+
 def admin(request):
     return render(request, 'myapp/administrator/index.html')
 
@@ -121,27 +141,28 @@ def manage_posts(request):
         description = request.POST.get('description')
         url = request.POST.get('url')
         image = request.FILES.get('image')
+        is_article = 'is_article' in request.POST  # Checkbox presence
 
-        # Always mark new posts as "new" on creation
         VlogPost.objects.create(
             title=title,
             description=description,
             image=image,
             url=url,
-            is_new=True
+            is_new=True,
+            is_article=is_article
         )
         return redirect('admin_dashboard')
 
     posts = VlogPost.objects.all().order_by('-created_at')
     today = now().date()
 
-    # Update any posts that are no longer new
     for post in posts:
         if post.is_new and post.created_at.date() != today:
             post.is_new = False
             post.save(update_fields=['is_new'])
 
     return render(request, 'myapp/administrator/posts.html', {'posts': posts})
+
 
 @login_required
 @user_passes_test(lambda u: u.is_superuser)

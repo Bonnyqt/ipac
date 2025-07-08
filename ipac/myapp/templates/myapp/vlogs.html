@@ -4,7 +4,7 @@
 .favorites-section {
   position: relative;
   background-color: #fffcf3;
-  padding: 40px 20px 60px;
+  padding: 80px 20px 60px;
   text-align: center;
   overflow: hidden;
 }
@@ -154,20 +154,24 @@
 </style>
 
 <div class="favorites-section">
+  
   <div class="elegant-line-text">LATEST</div>
-
 <div class="vlog-gallery" id="vlogGallery">
   {% for post in posts %}
-    <a href="{{ post.url }}" target="_blank" class="vlog-card">
-      {% if post.is_new %}
-        <div class="new-post-banner">NEW POST</div>
-      {% endif %}
-      <img src="{{ post.image.url }}" alt="{{ post.title }}">
-      <div class="vlog-hover-text">
-        <h3>{{ post.title }}</h3>
-        <p>{{ post.description }}</p>
-      </div>
-    </a>
+    {% if post.is_article %}
+      <a href="{% url 'view_article' post.id %}" class="vlog-card">
+    {% else %}
+      <a href="{{ post.url }}" target="_blank" class="vlog-card">
+    {% endif %}
+        {% if post.is_new %}
+          <div class="new-post-banner">NEW POST</div>
+        {% endif %}
+        <img src="{{ post.image.url }}" alt="{{ post.title }}">
+        <div class="vlog-hover-text">
+          <h3>{{ post.title }}</h3>
+ 
+        </div>
+      </a>
   {% empty %}
     <p>No vlog posts found.</p>
   {% endfor %}
@@ -177,34 +181,37 @@
 </div>
 
 <script>
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
   function isMobile() {
     return window.innerWidth <= 768;
   }
+
   const vlogGallery = document.getElementById('vlogGallery');
   const vlogCards = Array.from(vlogGallery.getElementsByClassName('vlog-card'));
   const showMoreBtn = document.getElementById('showMoreVlogs');
 
   function updateVlogDisplay() {
-    if (isMobile() && vlogCards.length > 3) {
+    if (vlogCards.length === 3) {
+      // Show all 3 cards
+      vlogCards.forEach(card => card.style.display = '');
+      // Show button
+      showMoreBtn.style.display = 'block';
+    } else if (vlogCards.length > 3) {
+      // Hide cards beyond the 3rd
       vlogCards.forEach((card, idx) => {
         card.style.display = idx < 3 ? '' : 'none';
       });
       showMoreBtn.style.display = 'block';
-    } else if (!isMobile() && vlogCards.length > 6) {
-      vlogCards.forEach((card, idx) => {
-        card.style.display = idx < 6 ? '' : 'none';
-      });
-      showMoreBtn.style.display = 'block';
     } else {
+      // Less than 3 cards – just show all, no button
       vlogCards.forEach(card => card.style.display = '');
       showMoreBtn.style.display = 'none';
     }
   }
 
-  showMoreBtn.addEventListener('click', function() {
-    vlogCards.forEach(card => card.style.display = '');
-    showMoreBtn.style.display = 'none';
+  // Redirect to another page when button is clicked
+  showMoreBtn.addEventListener('click', function () {
+    window.location.href = "{% url 'latest'%}"; 
   });
 
   updateVlogDisplay();

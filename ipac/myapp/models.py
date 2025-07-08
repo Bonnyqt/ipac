@@ -8,6 +8,6 @@ class VlogPost(models.Model):
     url = models.URLField(max_length=500, blank=True)
     is_new = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
-
+    is_article = models.BooleanField(default=False)
     def __str__(self):
         return self.title

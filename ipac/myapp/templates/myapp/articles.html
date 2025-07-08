@@ -1,0 +1,138 @@
+{% load static %}
+
+  <style>
+  @keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Animate on Load */
+.image-wrapper {
+  animation: fadeIn 1s ease-out forwards;
+}
+
+    .article-template {
+      line-height: 1.6;
+      color: #333;
+      background-color: #fafafa;
+    }
+
+    .article-template .image-wrapper {
+      position: relative;
+      width: 100%;
+      height: 30vh;
+      overflow: hidden;
+    }
+
+    .article-template .image-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .article-template .image-wrapper::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.562); /* Dim effect */
+      z-index: 1;
+    }
+
+    .article-template .article-content {
+      max-width: 900px;
+      margin: -40px auto 0 auto;
+      padding: 40px 20px;
+      background: #fff;
+      position: relative;
+      z-index: 2;
+    }
+
+    .article-template .article-title {
+      font-size: 2em;
+      margin-bottom: 10px;
+      font-family: 'Playfair Display', serif;
+    }
+
+    .article-template .article-meta {
+      color: #777;
+      font-size: 0.9em;
+      margin-bottom: 20px;
+  font-family: 'Montserrat', serif;
+    }
+
+    .article-template .article-text {
+      font-size: 1.1em;
+      font-family: 'Montserrat', serif;
+    }
+    .bg-img {
+  position: absolute;
+  top: 300px; /* Adjust to be below image-wrapper */
+  right: 0;
+  width: 700px;
+  opacity: 0.05;
+  z-index: 0;
+  pointer-events: none;
+}
+    .bg-img2 {
+  position: absolute;
+  top: 1200px;
+  left: 0;
+  width: 700px;
+  opacity: 0.05;
+  z-index: 0;
+  pointer-events: none;
+
+}
+.image-wrapper {
+  animation: fadeIn 1s ease-out forwards;
+}
+
+.article-content {
+  opacity: 0;
+  animation: fadeInUp 1s ease-out 0.5s forwards;
+}
+
+  </style>
+</head>
+<body>
+ {% include "myapp/header2.html" %}
+ 
+<div class="article-template">
+  <div class="image-wrapper">
+    <img src="{{ post.image.url }}" alt="Article Image">
+  </div>
+
+  <!-- Background image here -->
+  <img src="{% static 'images/background.png' %}" class="bg-img" alt="">
+<img src="{% static 'images/backgroundright.png' %}" class="bg-img2" alt="">
+  <div class="article-content">
+    <h1 class="article-title">{{ post.title }}</h1>
+    <p class="article-meta">By Atty. Jay-r Ipac • {{ post.created_at|date:"F j, Y" }}</p>
+    <div class="article-text">
+      {{ post.description|safe }}
+    </div>
+  </div>
+</div>
+
+   {% include "myapp/footer.html" %}
+
+
