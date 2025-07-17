@@ -11,6 +11,9 @@ urlpatterns = [
     path('', include('myapp.urls')),
 ]
 if settings.DEBUG:
-    from django.conf.urls.static import static
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
+else:
+    # Serve media files in production (not for large scale, just for quick test)
+    urlpatterns += [
+        re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
+    ]
