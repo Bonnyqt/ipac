@@ -1,0 +1,42 @@
+<style>
+.showcase-text {
+  background-color: #fffcf3;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  padding: 50px;
+}
+
+.elegant-line-text2 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Playfair Display', serif;
+  font-size: 20px;
+  color: #06152c;
+
+  letter-spacing: 2px;
+  position: relative;
+}
+
+
+
+/* Make the <p> narrower */
+.showcase-text p.elegant-line-text2 {
+  max-width: 1000px;
+  margin: 20px auto 0;
+  font-size: 20px;
+  line-height: 1.6;
+  font-family: 'Montserrat', serif;
+  padding: 20px;
+}
+</style>
+
+<div class="showcase-text">
+  <div class="elegant-line-text" style="font-size:50px; padding-bottom: 20px;">A GOOD COUNSEL</div>
+  {% if default_quote %}
+  <p class="elegant-line-text2">"{{ default_quote.text }}"</p>
+{% endif %}
+</div>
+
+

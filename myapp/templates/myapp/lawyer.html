@@ -1,0 +1,332 @@
+{% load static %}
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+   .showcase {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 40px;
+  background-color: #fff; /* or any background */
+  overflow: hidden; /* hide image overflow */
+  z-index: 0;
+}
+.bg-img {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 700px;
+  opacity: 0.05; 
+  z-index: -1;
+  pointer-events: none; 
+}
+    .showcase-images {
+      display: flex;
+      gap: 20px;
+      flex: 1 1 45%;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .showcase-images img {
+      width: 100%;
+      max-width: 350px;
+      height: 550px; 
+      object-fit: cover;
+
+      opacity: 0;
+      animation: fadeInLeft 1s forwards;
+    }
+    .showcase-images img:last-child {
+      animation: fadeInRight 1s forwards 0.3s;
+    }
+
+    @media (max-width: 900px) {
+      .showcase {
+        flex-direction: column;
+      }
+
+      .showcase-text {
+        padding-left: 0;
+        margin-top: 30px;
+        text-align: center;
+        align-items: center;
+      }
+
+      .showcase-images {
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .showcase-images img {
+        max-width: 100%;
+        height: 200px;
+      }
+    }
+
+    .img-1 {
+      grid-area: img1;
+      animation: slideInTop 1s forwards;
+    }
+
+    .img-2 {
+      grid-area: img2;
+      animation: fadeInLeft 1s forwards 0.3s;
+    }
+
+    .img-3 {
+      grid-area: img3;
+      animation: fadeInRight 1s forwards 0.6s;
+    }
+
+    @keyframes slideInTop {
+      from {
+        transform: translateY(-50px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    @keyframes fadeInLeft {
+      from {
+        transform: translateX(-30px);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+
+    @keyframes fadeInRight {
+      from {
+        transform: translateX(30px);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+
+    .showcase-text {
+      flex: 1 1 40%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding-left: 30px;
+      opacity: 0;
+      animation: textFadeUp 1s ease forwards 1s;
+    }
+
+    @keyframes textFadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .showcase-text h2 {
+      font-size: 30px;
+      margin-bottom: 18px;
+      color: #333;
+    }
+
+    .showcase-text p {
+      font-size: 17px;
+      line-height: 1.7;
+      color: #555;
+    }
+
+    @media (max-width: 900px) {
+      .showcase {
+        flex-direction: column;
+      }
+
+      .showcase-text {
+        padding-left: 0;
+        margin-top: 30px;
+        text-align: center;
+        align-items: center;
+      }
+
+      .showcase-images {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+          "img1"
+          "img2"
+          "img3";
+      }
+    }
+.elegant-line-text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Playfair Display', serif;
+  font-size: 50px;
+  color: #fafafa;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  position: relative;
+}
+
+.elegant-line-text::before,
+.elegant-line-text::after {
+  content: "";
+  flex: 0.1;
+  height: 1px;
+  background: #ffffff;
+  margin: 0 10px;
+  opacity: 0.5;
+}
+
+/* Add this to center the elegant-line-text absolutely */
+.centered-overlay {
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  z-index: 4;
+  pointer-events: none;
+  text-align: center;
+}
+.fancy-link {
+  position: relative;
+  color: #0a042c;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+/* underline effect */
+.fancy-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  width: 100%;
+  height: 2px;
+  background: #af7f10;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.4s ease;
+}
+
+.fancy-link:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.fancy-link:hover {
+  color: #af7f10;
+}
+
+/* pulse effect on hover */
+.fancy-link:hover {
+  animation: pulse 0.6s;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+.image-wrapper {
+      position: relative;
+      width: 100%;
+      height: 30vh;
+      overflow: hidden;
+    }
+
+.image-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+ .image-wrapper::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.562); /* Dim effect */
+      z-index: 1;
+    }
+
+  </style>
+</head>
+<body>
+ {% include "myapp/header2.html" %}
+ <div class="image-wrapper">
+  <img src="https://images.rawpixel.com/image_800/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvcm0yODMtbnVubnktMjU0LmpwZw.jpg" alt="Article Image">
+  <div class="elegant-line-text centered-overlay">LAWYER</div>
+</div>
+<div class="showcase">
+  <img src="{% static 'images/background.png' %}" class="bg-img" alt="">
+  <div class="showcase-images">
+    <img src="{% static 'images/lawyer2 (1).jpg' %}" alt="Image 1">
+    <img src="{% static 'images/lawyer.jpg' %}" alt="Image 2">
+  </div>
+  <div class="showcase-text">
+
+  <p style="text-align: center; font-family: 'Montserrat', serif; color:rgb(4 4 27);">
+Jayr is currently a Partner at
+  <a href="https://www.divinalaw.com/the-lawyers/jay-r-c-ipac/" target="_blank" class="fancy-link">
+    one of the leading law firms
+  </a>
+ in the Philippines. His practice areas include intellectual property, data privacy / protection, cybercrime, e-commerce law, tech contracts review, financial technology, corporate and criminal litigation, and regulatory intersections of law and technology (like blockchain and artificial intelligence).</p>
+  </div>
+</div>
+<div class="showcase" style="display: flex; justify-content: center; align-items: flex-start; gap: 40px; flex-wrap: wrap; padding: 40px 20px;">
+  
+  <div class="showcase-text" style="max-width: 700px; text-align: center;">
+    <h1 style="font-family: 'Playfair Display', serif; font-size: 20px; color:#04041b; margin-bottom: 10px;">
+      DATA PRIVACY
+    </h1>
+    <p style="font-family: 'Montserrat', sans-serif; color: rgb(4, 4, 27);">
+      As a data privacy practitioner, Jayr advises organizations, whether as controllers and/or processors, on how to properly carry out their processing activities through evolving data privacy regulations while maintaining operational agility, including designing and operationalizing privacy frameworks and translating legal requirements into actionable practices. Jayr is also an experienced speaker on privacy and compliance, having presented to audiences spanning private sector, public institutions, and industry groups.
+    </p>
+  </div>
+
+  <div class="showcase-text" style="max-width: 700px; text-align: center;">
+    <h1 style="font-family: 'Playfair Display', serif; font-size: 20px; color:#04041b; margin-bottom: 10px;">
+      INTELLECTUAL PROPERTY
+    </h1>
+    <p style="font-family: 'Montserrat', sans-serif; color: rgb(4, 4, 27);">
+      In the intellectual property field, Jayr has advised and represented parties involved in trademark and copyright disputes, including licensing agreements and infringement cases in various industries including music, food service, educational, manufacturing, pharmaceutical and fashion.
+    </p>
+  </div>
+
+</div>
+<div style="display: flex; justify-content: center; align-items: center; padding-bottom: 40px;">
+  
+  <div class="showcase-text" style="text-align: center; font-family: 'Montserrat', serif; color: #04041b; max-width: 900px;">
+    <h1 style="font-family: 'Playfair Display', serif; font-size: 20px; color:#04041b; margin-bottom: 10px;">
+      LITIGATION
+    </h1>
+    <p style="font-family: 'Montserrat', sans-serif; color: rgb(4, 4, 27);">
+    As technology becomes central to how businesses operate and deliver value, resorting to litigation sometimes becomes inevitable. Jayr combines his litigation experience (mostly commercial litigation) and his tech-focused practice in advising and representing parties in tech-related disputes oftentimes involving “Fintech” companies.   </p>
+  </div>
+</div>
+
+
+ {% include "myapp/footer.html" %}
+
+</body>
+</html>

@@ -1,0 +1,180 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administrator Login</title>
+</head>
+
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap');
+
+
+
+
+    .login-card {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 80px;
+  font-family: 'Poppins', sans-serif;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+      width: 420px;
+      color: #000000;
+      animation: floatUp 0.8s ease-out forwards;
+      transform: translateY(30px);
+      opacity: 0;
+      margin: 0 auto;
+      margin-top: 30px;
+      margin-bottom: 30px;
+    }
+
+    @keyframes floatUp {
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .login-card h2 {
+      text-align: center;
+      margin-bottom: 24px;
+      font-weight: 200;
+    }
+
+    .input-group {
+      margin-bottom: 20px;
+    }
+
+    .input-group label {
+      display: block;
+      font-size: 0.9rem;
+      margin-bottom: 6px;
+      opacity: 0.8;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 10px 14px;
+      border-radius: 2px;
+      border: none;
+      background: rgba(146, 146, 146, 0.459);
+      color: #000000;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .input-group input:focus {
+
+      background: rgba(255, 255, 255, 0.3);
+    }
+
+.luxury-btn2 {
+  display: inline-block;
+  padding: 14px 34px;
+  color: #000000;
+  font-family: 'Playfair Display', serif;
+  font-size: 14px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  text-decoration: none;
+    cursor: pointer;
+  margin: 28px auto 0 auto;
+  border: 2px solid #000000; /* GOLD BORDER */
+ 
+  background: transparent;
+
+  transition: all 0.35s ease;
+  position: relative;
+  overflow: hidden;
+ 
+  z-index: 20; 
+}
+
+.luxury-btn2:hover {
+  background-color: #000000;
+  color: #fff;
+  box-shadow: 0 0 16px rgba(0, 0, 0, 0.5);
+}
+ 
+.image-wrapper {
+      position: relative;
+      width: 100%;
+      height: 11vh;
+      overflow: hidden;
+    }
+
+.image-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+ .image-wrapper::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.562); /* Dim effect */
+      z-index: 1;
+    }
+    .bg-img {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 700px;
+  margin-top: 100px;
+  opacity: 0.05; 
+  z-index: -1;
+  pointer-events: none; 
+}
+  </style>
+<body>
+ {% include "myapp/header2.html" %}
+
+<img src="{% static 'images/background.png' %}" class="bg-img" alt="">
+ <div class="image-wrapper">
+  <img src="https://images.rawpixel.com/image_800/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvcm0yODMtbnVubnktMjU0LmpwZw.jpg" alt="Article Image">
+  <div class="elegant-line-text centered-overlay">CHEVENING ALUMNUS</div>
+</div>
+
+ <div class="login-card">
+  <h2>Welcome,<br> <span style="font-size: 30px;">Atty. Jay-r Ipac</span></h2>
+  <form method="post">
+    {% csrf_token %}
+    {% if error %}
+      <p style="color: red; text-align: center;">{{ error }}</p>
+    {% endif %}
+    
+    <div class="input-group">
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" required />
+    </div>
+
+    <div class="input-group">
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" required />
+    </div>
+
+    <div style="display: flex; justify-content: center;">
+      <button type="submit" class="luxury-btn2">Login</button>
+    </div>
+
+    <div class="forgot-password" style="text-align: center; margin-top: 30px; font-size: 0.9rem; opacity: 0.8;">
+      <a href="#" style="color: #000000; text-decoration: underline; font-weight: 500;">Forgot Password?</a>
+    </div>
+  </form>
+</div>
+
+
+ {% include "myapp/footer.html" %}
+</body>
+</html>

@@ -1,0 +1,17 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="icon" type="image/png" href="{% static 'images/logoipac2.png' %}">
+  
+</head>
+<body>
+      {% include "myapp/header.html" %}
+      {% include "myapp/slideshow.html" %}
+ {% include "myapp/vlogs.html" %}
+  {% include "myapp/quotes.html" %}
+    {% include "myapp/footer.html" %}
+</body>
+</html>

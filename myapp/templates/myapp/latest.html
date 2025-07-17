@@ -1,0 +1,504 @@
+{% load static %}
+<style>
+/* Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Playfair+Display:wght@600&display=swap');
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  background-color: #fdfcfa;
+  margin: 0;
+  padding: 0;
+}
+.elegant-line-text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Playfair Display', serif;
+  font-size: 50px;
+  color: #fafafa;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  position: relative;
+}
+
+.elegant-line-text::before,
+.elegant-line-text::after {
+  content: "";
+  flex: 0.1;
+  height: 1px;
+  background: #ffffff;
+  margin: 0 10px;
+  opacity: 0.5;
+}
+
+/* Add this to center the elegant-line-text absolutely */
+.centered-overlay {
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  z-index: 4;
+  pointer-events: none;
+  text-align: center;
+}
+.fancy-link {
+  position: relative;
+  color: #0a042c;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+/* underline effect */
+.fancy-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  width: 100%;
+  height: 2px;
+  background: #af7f10;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.4s ease;
+}
+
+.fancy-link:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.fancy-link:hover {
+  color: #af7f10;
+}
+
+/* pulse effect on hover */
+.fancy-link:hover {
+  animation: pulse 0.6s;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+.image-wrapper {
+      position: relative;
+      width: 100%;
+      height: 30vh;
+      overflow: hidden;
+    }
+
+.image-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+ .image-wrapper::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.562); /* Dim effect */
+      z-index: 1;
+    }
+/* Main content */
+.all-posts {
+  background: #fdfcfa;
+  padding-left: 20px;
+}
+
+.post-date {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 26px;
+  color: #333;
+  border-left: 4px solid #af7f10;
+  padding-left: 14px;
+
+}
+
+/* Gallery layout */
+.vlog-gallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  justify-content: flex-start;
+  padding-bottom: 40px;
+}
+
+.vlog-card {
+  position: relative;
+  width: 350px;
+  height: 260px;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-decoration: none;
+  color: inherit;
+}
+
+.vlog-card:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 6px 26px rgba(0,0,0,0.12);
+}
+
+.vlog-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: filter 0.4s ease;
+}
+
+.vlog-card:hover img {
+  filter: brightness(0.75);
+}
+
+.vlog-hover-text {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  padding: 20px;
+  text-align: center;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.vlog-card:hover .vlog-hover-text {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.vlog-hover-text h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  font-family: 'Playfair Display', serif;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+/* New Post Ribbon */
+.new-post-banner {
+  position: absolute;
+  top: 15px;
+  right: -35px;
+  background-color: #a0111c;
+  color: #fff;
+  padding: 5px 0;
+  width: 130px;
+  text-align: center;
+  transform: rotate(45deg);
+  font-size: 11px;
+  font-weight: bold;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  z-index: 2;
+  letter-spacing: 1px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .vlog-gallery {
+    justify-content: center;
+  }
+
+  .vlog-card {
+    width: 90%;
+    height: 220px;
+  }
+
+  .elegant-line-text {
+    font-size: 2rem;
+  }
+}
+
+.search-bar-wrapper {
+  display: flex;
+  justify-content: center;
+  padding-top: 20px;
+  background-color: #fdfcfa;
+  position: relative; /* ✅ Add this */
+  z-index: 5; /* Optional: Raise this too */
+}
+
+.search-form {
+  display: flex;
+  max-width: 800px;
+  width: 100%;
+  border: 1px solid #ccc;
+  overflow: visible; 
+  background: #fff;
+  position: relative;
+  z-index: 3; 
+} 
+
+.search-input {
+  flex: 1.5; /* make it take more space */
+  min-width: 700px; /* adjust as needed */
+  padding: 12px 20px;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.search-button {
+  background-color: #af7f10;
+  color: #fff;
+  padding: 0 25px;
+  border: none;
+  cursor: pointer;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+.search-button:hover {
+  background-color: #8a640d;
+}
+
+
+
+
+.filter-icon:hover {
+  background-color: #f6f6f6;
+}
+.search-input-wrapper {
+  position: relative;
+  flex: 1;
+}
+
+.recommend-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-top: none;
+  width: 100%;
+  display: none;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  font-family: 'Montserrat', sans-serif;
+  z-index: 99;
+}
+.recommend-item {
+  padding: 10px 15px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.recommend-item:hover {
+  background-color: #f4f4f4;
+}
+
+.search-form {
+  position: relative;
+}
+@keyframes fadeSlideIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.recommend-dropdown.show {
+  display: block !important;
+  animation: fadeSlideIn 0.3s ease forwards;
+}
+.recommend-header {
+  font-size: 14px;
+  font-weight: 600;
+  padding: 10px 15px;
+  background-color: #fafafa;
+  border-bottom: 1px solid #ddd;
+  color: #444;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.recommend-item.no-suggestions {
+  opacity: 0.5;
+  font-style: italic;
+  pointer-events: none;
+}
+.date-filter-dropdown {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: #fff;
+  padding: 12px 20px;
+  border: 1px solid #ddd;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  font-family: 'Montserrat', sans-serif;
+  animation: fadeSlideIn 0.3s ease forwards;
+}
+
+.date-label {
+  font-weight: 600;
+  margin-right: 10px;
+}
+
+#dateInput {
+  font-family: 'Montserrat', sans-serif;
+  padding: 6px 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+ 
+</style>
+
+<!-- HEADER -->
+{% include "myapp/header2.html" %}
+
+ <div class="image-wrapper">
+  <img src="https://images.rawpixel.com/image_800/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvcm0yODMtbnVubnktMjU0LmpwZw.jpg" alt="Article Image">
+  <div class="elegant-line-text centered-overlay">ALL POSTS</div>
+</div>
+<div class="search-bar-wrapper">
+  <form method="GET" action="" class="search-form" autocomplete="on">
+    <div class="search-input-wrapper">
+      <input type="text" name="q" id="searchInput" placeholder="Search posts..." value="{{ query }}" class="search-input">
+
+      <div id="recommendDropdown" class="recommend-dropdown">
+        {% if recommended_keywords %}
+          <div class="recommend-header">Recommended Searches</div>
+          {% for keyword in recommended_keywords %}
+            <div class="recommend-item">{{ keyword }}</div>
+          {% endfor %}
+        {% else %}
+          <div class="recommend-item no-suggestions">No suggestions</div>
+        {% endif %}
+      </div>
+    </div>
+
+   <div style="position: relative; display: flex;
+  align-items: center;
+  padding: 0 12px;
+  background: #fff;
+  border-left: 1px solid #ddd;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  {% if selected_date %}background-color:#af7f10;{% endif %}">
+  <span class="filter-icon" title="Filter by Date" id="toggleDateFilter">
+    <svg xmlns="http://www.w3.org/2000/svg"  height="20" width="20" fill="{% if selected_date %}#fff{% else %}#af7f10{% endif %}" viewBox="0 0 24 24">
+      <path d="M10 18h4v-2h-4v2Zm-7-6v-2h18v2H3Zm3-6V4h12v2H6Z"/>
+    </svg>
+  </span>
+
+  <!-- Date Filter Dropdown -->
+  <div id="dateFilterDropdown" class="date-filter-dropdown">
+    <label for="date" class="date-label">Filter by Date:</label>
+    <input type="date" name="date" id="dateInput" value="{{ selected_date }}">
+  </div>
+</div>
+
+    <button type="submit" class="search-button">Search</button>
+  </form>
+
+
+</div>
+
+<!-- All Posts Summary -->
+<div class="all-posts">
+
+  {% if query %}
+    <div class="search-result-info" style="text-align:center; padding:20px; font-family:'Montserrat', sans-serif; color:#333;">
+      Showing results for <strong>"{{ query }}"</strong>
+    </div>
+  {% endif %}
+
+  {% if not has_results %}
+    <div class="no-results" style="text-align:center; padding:40px 20px; font-family:'Montserrat', sans-serif; font-size:20px; color:#555;">
+      No posts found matching your search.
+    </div>
+  {% else %}
+    {% for date, posts_on_date in grouped_posts %}
+      <h2 class="post-date">{{ date }}</h2>
+      <div class="vlog-gallery">
+        {% for post in posts_on_date %}
+          <a href="{% if post.is_article %}{% url 'view_article' post.id %}{% else %}{{ post.url }}{% endif %}" class="vlog-card" target="_blank">
+            {% if post.is_new %}
+              <div class="new-post-banner">NEW POST</div>
+            {% endif %}
+            <img src="{{ post.image.url }}" alt="{{ post.title }}">
+            <div class="vlog-hover-text">
+              <h3>{{ post.title }}</h3>
+            </div>
+          </a>
+        {% endfor %}
+      </div>
+    {% endfor %}
+  {% endif %}
+</div>
+
+
+<!-- FOOTER -->
+{% include "myapp/footer.html" %}
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const input = document.getElementById('searchInput');
+  const dropdown = document.getElementById('recommendDropdown');
+  const items = dropdown.querySelectorAll('.recommend-item');
+
+  input.addEventListener('focus', () => {
+    dropdown.classList.add('show');
+  });
+
+  input.addEventListener('blur', () => {
+    setTimeout(() => {
+      dropdown.classList.remove('show');
+    }, 200); // allow click
+  });
+
+  items.forEach(item => {
+    item.addEventListener('click', () => {
+      input.value = item.textContent;
+      dropdown.classList.remove('show');
+    });
+  });
+});
+document.addEventListener('DOMContentLoaded', function () {
+  const filterIcon = document.getElementById('toggleDateFilter');
+  const dateDropdown = document.getElementById('dateFilterDropdown');
+
+  filterIcon.addEventListener('click', function (e) {
+    e.preventDefault();
+    dateDropdown.style.display = dateDropdown.style.display === 'block' ? 'none' : 'block';
+  });
+
+  document.addEventListener('click', function (e) {
+    if (!dateDropdown.contains(e.target) && !filterIcon.contains(e.target)) {
+      dateDropdown.style.display = 'none';
+    }
+  });
+});
+
+  document.getElementById('dateInput').addEventListener('change', function () {
+    const selectedDate = this.value;
+    const url = new URL(window.location.href);
+    url.searchParams.set('date', selectedDate); // set/replace date param
+    window.location.href = url.toString(); // reload page with updated date
+  });
+</script>

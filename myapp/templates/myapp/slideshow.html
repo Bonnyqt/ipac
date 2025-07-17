@@ -1,0 +1,271 @@
+ {%load static%}
+
+ <style>
+   .slideshow-container {
+  width: 100vw;
+  max-width: 100vw;
+  margin: 0;
+  position: relative;
+  background: #181818;
+  border-radius: 0;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+  overflow: hidden;
+  left: 50%;
+  right: 50%;
+  transform: translateX(-50%);
+  height: 950px; 
+  min-height: 500px; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+}
+.slide img {
+  width: 100vw;
+  height: 950px; 
+  object-fit: cover;
+  display: block;
+  border-radius: 0;
+  animation: fadeBlurImg 1.2s;
+}
+ 
+    .slide {
+    display: none;
+    height: 100%;
+    position: relative;
+  }
+
+  @keyframes fadeBlurImg {
+    0% {
+      opacity: 0.4;
+      filter: blur(18px);
+    }
+    60% {
+      filter: blur(8px);
+    }
+    100% {
+      opacity: 1;
+      filter: blur(0);
+    }
+  }
+  .slide-dim {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  width: 100%;
+  height: 100%;
+  /* Black at top, transparent at bottom */
+  background: linear-gradient(
+    to bottom,  
+    rgba(0,0,0,0.80) 0%,
+    rgba(0,0,0,0.6) 60%,
+    rgba(0,0,0,0.30) 90%,
+    rgba(0,0,0,.10) 100%
+  );
+  z-index: 1;
+  pointer-events: none;
+}
+
+    
+ .slideshow-dots {
+  text-align: center;
+  padding: 12px 0 8px 0;
+  background: transparent;
+  position: absolute;
+  width: 100vw;
+  z-index: 20;
+  bottom: 0;
+  left: 0;
+}
+
+.dot {
+  cursor: pointer;
+  height: 12px;
+  width: 12px;
+  margin: 0 4px;
+  background-color: transparent;
+  display: inline-block;
+  border: 2px solid #ffffff;
+
+  transition: all 0.4s ease; /* Animate width and shape */
+}
+
+.dot:hover {
+  background-color: #ffffff;
+}
+
+.dot.active {
+  background-color: #ffffff;
+  width: 50px;
+
+}
+.slide-text {
+  position: absolute;
+  top: 40%;
+  left: 40px;
+  transform: translateY(-50%);
+  z-index: 2;
+  color: #fff;
+  font-family: 'Playfair Display', serif;
+  font-size: 4.2rem;
+  font-weight: 500;
+  text-align: left;
+  text-shadow: 0 4px 24px rgba(0,0,0,0.35);
+  letter-spacing: 0.04em;
+  max-width: 1200px;
+  line-height: 1.2;
+}
+
+.slide-subtext {
+  position: absolute;
+  top: calc(36% + 120px); /* Slightly below main title */
+  left: 40px;
+  transform: translateY(-50%);
+  z-index: 2;
+  color: #ddd;
+  font-family: 'Montserrat', serif;
+  font-size: 1rem;
+  
+  font-weight: 400;
+  text-align: left;
+  text-shadow: 0 3px 16px rgba(0,0,0,0.4);
+  max-width: 600px;
+}
+@media (max-width: 900px) {
+   .slide-text {
+  position: absolute;
+  top: 36%;
+  left: 40px;
+  transform: translateY(-50%);
+  z-index: 2;
+  color: #fff;
+  font-family: 'Playfair Display', serif;
+  font-size: 3rem;
+  font-weight: 500;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  text-shadow: 0 4px 24px rgba(0,0,0,0.35);
+  letter-spacing: 0.04em;
+  max-width: 1200px;
+  line-height: 1.2;
+}
+.slide-subtext {
+  position: absolute;
+  top: calc(36% + 100px); /* Slightly below main title */
+  transform: translateY(-50%);
+  z-index: 2;
+  color: #ddd;
+  font-family: 'Playfair Display', serif;
+  font-size: 0.87rem;
+  
+  font-weight: 400;
+  text-align: center;
+  text-shadow: 0 3px 16px rgba(0,0,0,0.4);
+  max-width: 600px;
+}
+  }
+@keyframes slideFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+.slide-text,
+.slide-subtext {
+  opacity: 0;
+  transition: opacity 1s ease, transform 1s ease;
+  transform: translateY(20px);
+}
+
+.slide-text.animated-text.visible,
+.slide-subtext.animated-text.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.animated-text {
+  animation: slideFadeIn 1s ease forwards;
+}
+.parallax-bg {
+    position: relative;
+    width: 100vw;
+    min-height: 650px;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    z-index: 0;
+    overflow: hidden;
+  }
+  @media (max-width: 900px) {
+    .parallax-bg {
+      background-attachment: scroll; /* fallback for mobile */
+    }
+  }
+ </style>
+<div class="parallax-bg">
+ <div class="slideshow-container">
+  <!-- Centered logo that will disappear on scroll -->
+  <div class="logo-center-slide" id="slideshowLogo">
+
+    <div style="text-align: center; margin-top: 40px;">
+     
+    </div>
+  </div>
+
+  <div class="slide fade" style="display:block;">
+    <img src="{% static 'images/lawyer2.jpg' %}" alt="Sample 1">
+    <div class="slide-dim"></div>
+    <div class="slide-text" id="slide-text-0">LAWYER</div>
+    <div class="slide-subtext" id="slide-subtext-0">Jayr is currently a Partner at Divinalaw. His practice areas include intellectual property, data privacy / protection, cybercrime, e-commerce law, tech contracts review, financial technology, corporate and criminal litigation, and regulatory intersections of law and technology</div>
+  </div>
+  <div class="slide fade">
+    <img src="{% static 'images/edit2.jpg' %}" alt="Sample 2">
+    <div class="slide-dim"></div>
+    <div class="slide-text" id="slide-text-1">LAW ACADEME</div>
+    <div class="slide-subtext" id="slide-subtext-0">Jayr is a Professor at the University of Santo Tomas Faculty of Civil Law and San Sebastian Recoletos-College of Law where he teaches Commercial Law subjects (Data Privacy, Intellectual Property, Insurance, Transportation, and Competition Law). He is also a Professor at the UST Graduate School of Law where he teaches the course “Fintech and Other Commercial Intersections with Emerging Technologies.”</div>
+  </div>
+  <div class="slide fade">
+    <img src="{% static 'images/author1.jpg' %}" alt="Sample 3">
+    <div class="slide-dim"></div>
+    <div class="slide-text" id="slide-text-2">AUTHOR</div>
+    <div class="slide-subtext" id="slide-subtext-0">In 2023, Jayr authored the book “Information Technology, Law, and Policy.” He has also written articles on the topic of law and technology published by the International Comparative Legal Guide, Asia Legal Business, and the Asia Business Law Journal.
+</div>
+  </div>
+  <div class="slide fade">
+    <img src="{% static 'images/rotaryy.jpg' %}" alt="Sample 3">
+    <div class="slide-dim"></div>
+    <div class="slide-text" id="slide-text-3">ROTARIAN</div>
+    <div class="slide-subtext" id="slide-subtext-0">Jayr is currently the incoming President of the Rotary Club of Manila Supreme 198, whose charter President is currently the District Governor-nominee for District 3810, under the current Rotary Theme of Unite for Good. </div>
+  </div>
+  <div class="slide fade">
+    <img src="{% static 'images/beyondthebar2.jpg' %}" alt="Sample 3">
+    <div class="slide-dim"></div>
+    <div class="slide-text" id="slide-text-4">BEYOND THE BAR</div>
+    <div class="slide-subtext" id="slide-subtext-0">TECHNOLOGY AND LAW – Jayr is a thought partner and respected voice in the field of regulatory intersections of technology and the law, including blockchain and artificial intelligence. </div>
+  </div>
+  <div class="slide fade">
+    <img src="{% static 'images/chevening1.jpg' %}" alt="Sample 3">
+    <div class="slide-dim"></div>
+    <div class="slide-text" id="slide-text-5">CHEVENING ALUMNUS</div>
+    <div class="slide-subtext" id="slide-subtext-0">In 2021, Jayr was awarded the prestigious Chevening scholarship by the UK Government and proceeded to take up his master’s degree in Information Technology and Intellectual Property Law at the University of East Anglia, United Kingdom, finishing the course with Distinction in 2022. Prior to that, he has also completed the online FinTech certification course of the Harvard Office of the Vice Provost for Advances in Learning, Harvard University, USA.</div>
+  </div>
+  <div class="slide fade">
+    <img src="{% static 'images/ecowaste.jpg' %}" alt="Sample 3">
+    <div class="slide-dim"></div>
+    <div class="slide-text" id="slide-text-6">ECO-WASTE ADVOCATE</div>
+    <div class="slide-subtext" id="slide-subtext-0">Jayr has been practicing waste segregation/reduction for almost five years now, thereby supporting available materials waste recovery facilities in the country including Eco-Ikot. He aims to influence others towards the same advocacy.</div>
+  </div>
+    <div class="slideshow-dots">  
+      <span class="dot" onclick="showSlide(0)"></span>
+      <span class="dot" onclick="showSlide(1)"></span>
+      <span class="dot" onclick="showSlide(2)"></span>
+      <span class="dot" onclick="showSlide(3)"></span>
+      <span class="dot" onclick="showSlide(4)"></span>
+      <span class="dot" onclick="showSlide(5)"></span>
+      <span class="dot" onclick="showSlide(6)"></span>
+    </div>
+</div>
+</div>

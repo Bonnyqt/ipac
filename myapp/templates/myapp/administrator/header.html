@@ -1,0 +1,689 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JAY-R IPAC</title>
+   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&family=Playfair+Display:wght@400;500&display=swap');
+
+    html, body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  overflow-x: hidden;
+ 
+}
+p{
+  font-family: 'Montserrat', sans-serif;
+}
+    
+    .header-row .nav-left,
+    .header-row .nav-right {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .header-row .nav-left {
+      justify-content: flex-end;
+    }
+    .header-row .nav-right {
+      justify-content: flex-start;
+    }
+    .header-row ul {
+      display: flex;
+      gap: 84px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      background: transparent;
+      border: none;
+      box-shadow: none;
+    }
+    .header-row ul li a {
+      color: #fff;
+      text-decoration: none;
+      font-family: 'Montserrat', 'Playfair Display', serif;
+    font-size: 18px;
+      font-weight: 300;
+      letter-spacing: 0.08em;
+      position: relative;
+      transition: all 0.3s;
+      text-transform: uppercase;
+      background: transparent;
+      border: none;
+      box-shadow: none;
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 1);
+    }
+    .header-row ul li a:hover {
+      color: #af7f10;
+      text-shadow: 0 0 5px #af7f10, 0 0 10px #af7f10;
+    }
+    .header-row ul li a::after {
+      content: "";
+      position: absolute;
+      width: 0%;
+      height: 2px;
+      background: #af7f10;
+      bottom: -5px;
+      left: 0;
+      transition: width 0.3s;
+    }
+    .header-row ul li a:hover::after {
+      width: 100%;
+    }
+    .header-row .logo-center {
+      flex: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0 80px;
+      background: transparent;
+      border: none;
+      box-shadow: none;
+    }
+    .header-row .logo-center img {
+      height: 60px;
+      width: auto;
+      display: block;
+      background: transparent;
+      border: none;
+      box-shadow: none;
+    }
+    .right-corner-logo {
+      position: absolute;
+      right: 24px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      align-items: center;
+      background: transparent;
+      border: none;
+      box-shadow: none;
+    }
+    .right-corner-logo img {
+      height: 48px;
+      width: auto;
+      display: block;
+      background: transparent;
+      border: none;
+      box-shadow: none;
+    }
+
+    .header-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top:20px;
+    padding-bottom: 20px;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.6) 0%,
+    rgba(0,0,0,0.3) 60%,
+    rgba(0,0,0,0.2) 90%,
+    rgba(0,0,0,0) 100%
+  );
+  position: absolute;      
+  top: 0;
+  left: 0;
+  width: 100vw;
+  z-index: 10;
+  border: none;
+  box-shadow: none;
+  margin-bottom: 0;
+   border-bottom: 1px solid rgba(0, 0, 0, 0.3); 
+  backdrop-filter: blur(10px); 
+  -webkit-backdrop-filter: blur(10px); 
+  background-color: rgba(255, 255, 255, 0.7); 
+}
+   
+
+
+    .header-row ul li a.active {
+  color: #af7f10;
+  text-shadow: 0 0 5px #af7f10, 0 0 10px #af7f10;
+}
+.header-row ul li a.active::after {
+  width: 100%;
+}
+.sticky-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  z-index: 100;
+  transition: all 0.3s ease-in-out;
+  display: none;
+  padding: 10px 0;
+}
+
+
+
+.logo-center-slide img {
+  height: 100px;
+  width: auto;
+  display: block;
+  filter: drop-shadow(0 4px 18px rgba(0,0,0,0.4));
+}
+/* Central logo on slideshow */
+.logo-center-slide {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  transition: all 0.6s ease;
+  opacity: 1;
+  pointer-events: none; /* keep this for container */
+}
+
+/* ✅ Enable pointer events ONLY for the button inside */
+.logo-center-slide .luxury-btn {
+  pointer-events: auto;
+}
+
+/* Hidden state */
+.logo-center-slide.hidden {
+  opacity: 0;
+  transform: translate(-50%, -70%) scale(0.9);
+}
+
+/* Sticky logo */
+.sticky-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: translateY(-20px) scale(0.9);
+  transition: all 0.6s ease;
+}
+
+.sticky-header.show .sticky-logo {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+.sticky-header .nav-left,
+.sticky-header .nav-right {
+  opacity: 0;
+  transition: all 0.6s ease;
+  pointer-events: none;
+}
+
+
+.sticky-header .nav-left {
+  transform: translateX(40px); 
+}
+
+.sticky-header .nav-right {
+  transform: translateX(-40px);
+}
+
+
+.sticky-header.show .nav-left {
+  opacity: 1;
+  transform: translateX(0);
+  pointer-events: auto;
+}
+
+.sticky-header.show .nav-right {
+  opacity: 1;
+  transform: translateX(0); 
+  pointer-events: auto;
+}
+.mobile-header {
+  display: none;
+}
+
+
+@media screen and (max-width: 768px) {
+
+  header,
+  .sticky-header {
+    display: none !important;
+  }
+
+  .mobile-header {
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 60px;
+    background: linear-gradient(
+    to bottom,
+    rgba(0,0,0,0.70) 0%,
+    rgba(0,0,0,0.5) 60%,
+    rgba(0,0,0,0.20) 90%,
+    rgba(0,0,0,0) 100%
+  );
+    z-index: 999;
+    align-items: center;
+    justify-content: center;
+ 
+  }
+
+.mobile-header-row {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+
+.mobile-logo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.92);
+  opacity: 0;
+  transition: all 0.4s ease;
+  height: 60px;
+  width: auto;margin-top: 5px;
+  pointer-events: none;
+}
+
+.mobile-logo.visible {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+  pointer-events: auto;
+}
+
+/* Burger aligned to right */
+.burger {
+  position: absolute;
+  top: 50%;
+  right: 40px;
+  transform: translateY(-50%);
+  font-size: 28px;
+  color: #fff;
+  cursor: pointer;
+  padding: 4px 8px;
+  transition: transform 0.3s ease;
+}
+  
+}
+.luxury-btn {
+  display: inline-block;
+  padding: 14px 34px;
+  color: #fff;
+  font-family: 'Playfair Display', serif;
+  font-size: 14px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+
+  border: 2px solid #04041b; /* GOLD BORDER */
+ 
+  background: transparent;
+
+  transition: all 0.35s ease;
+  position: relative;
+  overflow: hidden;
+ 
+  z-index: 20; 
+}
+
+.luxury-btn:hover {
+  background-color: #04041b;
+  color: #fff;
+  box-shadow: 0 0 16px rgba(175, 127, 16, 0.5);
+}
+.mobile-sidebar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(20, 20, 20, 0.95);
+  z-index: 1000;
+  transform: translateX(100%);
+  transition: transform 0.4s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.mobile-sidebar.show {
+  transform: translateX(0);
+}
+
+.mobile-sidebar .sidebar-content {
+  text-align: center;
+}
+
+.mobile-sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.mobile-sidebar ul li {
+  margin: 20px 0;
+}
+
+.mobile-sidebar ul li a {
+  color: #fff;
+  font-size: 20px;
+  font-family: 'Montserrat', sans-serif;
+  text-decoration: none;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+}
+
+.mobile-sidebar ul li a:hover {
+  color: #04041b;
+}
+
+.close-btn {
+  position: absolute;
+  top: 24px;
+  right: 30px;
+  font-size: 34px;
+  color: #fff;
+  cursor: pointer;
+}
+
+
+@keyframes fadeGlow {
+  0%, 100% {
+    filter: drop-shadow(0 0 0px rgba(255, 255, 255, 0.4));
+  }
+  50% {
+    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 1));
+  }
+}
+    .sticky-logo:hover, .right-corner-logo:hover {
+  animation: fadeGlow 2s ease-in-out infinite;
+  cursor: pointer;
+}
+
+
+
+
+@keyframes fadeGlow {
+  0%, 100% {
+    filter: drop-shadow(0 0 0px rgba(255, 255, 255, 0.4));
+  }
+  50% {
+    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 1));
+  }
+}
+
+.dropdown-content {
+  display: block; /* changed for animation */
+  opacity: 0;
+  transform: translateY(10px);
+  visibility: hidden;
+  position: absolute;
+  background-color: #2c2c2c80;
+  min-width: 160px;
+  margin-top: 4px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+  pointer-events: none;
+}
+
+.dropdown-content a {
+  color: black;
+  font-family: 'Montserrat', 'Playfair Display', serif;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown:hover .dropdown-content {
+  opacity: 1;
+  transform: translateY(0px);
+  visibility: visible;
+  pointer-events: auto;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  position: relative;
+}
+
+
+.dropdown:hover .dropdown-content {
+  opacity: 1;
+  transform: translateY(0px);
+  visibility: visible;
+  pointer-events: auto;
+}
+
+/* ▼ icon animation */
+.dropdown-icon {
+  display: inline-block;
+  margin-left: 6px;
+  transition: transform 0.3s ease;
+}
+
+.dropdown:hover .dropdown-icon {
+  transform: rotate(180deg);
+}
+.logo-img {
+  filter: drop-shadow(1px 1px 3px rgba(0, 0, 0, 0.5));
+}
+  </style>
+</head>
+<body>
+
+<div id="mobileSidebar" class="mobile-sidebar">
+  <div class="sidebar-content">
+    <span class="close-btn" onclick="toggleMobileNav()">&times;</span>
+    <ul>
+    
+  <li><a href="{% url 'manage_posts' %}">Manage Posts</a></li>
+  <li><a href="{% url 'manage_quotes' %}">Manage Quotes</a></li>
+  <li><a href="{% url 'mails' %}">VIEW MAILS</a></li>
+<li> <a href="{% url 'logout' %}">Log Out</a></li>
+    </ul>
+  </div>
+</div>
+
+  <div class="mobile-header" id="mobileHeader">
+    
+  <div class="mobile-header-row">
+    <!-- Logo will be added dynamically -->
+    <div class="burger" onclick="toggleMobileNav()">☰</div>
+  </div>
+</div>
+  <div class="sticky-header" id="stickyHeader">
+  <div class="header-row" style="background: transparent;">
+   <nav class="nav-left">
+  <ul>
+   
+   <li>
+      <a href="{% url 'mails' %}" class="{% if request.resolver_match.url_name == 'mails' %}active{% endif %}">View Emails</a>
+    </li>
+    <li>
+      <a href="{% url 'manage_posts' %}" class="{% if request.resolver_match.url_name == 'manage_posts' %}active{% endif %}">Manage Posts</a>
+    </li>
+  </ul>
+</nav>
+<div class="logo-center">
+          <div class="sticky-logo">
+    <a href="{% url 'index' %}"><img src="{% static 'images/bradingw.png' %}" alt="Logo" class="logo-img"></a>
+  
+    </div>
+        </div>
+<nav class="nav-right">
+  <ul>
+    <li>
+      <a href="{% url 'manage_quotes' %}" class="{% if request.resolver_match.url_name == 'rotarian' %}active{% endif %}">Manage Quotes</a>
+    </li>
+<li>
+       <a href="{% url 'logout' %}">Log Out</a>
+    </li>
+  </ul>
+</nav>
+  
+  </div>
+</div>
+ <header>
+   <div class="header-row" style="background: transparent;">
+   <nav class="nav-left">
+  <ul>
+   
+  <li>
+      <a href="{% url 'mails' %}" class="{% if request.resolver_match.url_name == 'mails' %}active{% endif %}">View Mails</a>
+    </li>
+    <li>
+      <a href="{% url 'manage_posts' %}" class="{% if request.resolver_match.url_name == 'manage_posts' %}active{% endif %}">Manage Posts</a>
+    </li>
+  </ul>
+</nav>
+<div class="logo-center">
+       
+      <a href="{% url 'index' %}"><img src="{% static 'images/bradingw.png' %}" alt="Logo" class="logo-img"></a>
+  
+        </div>
+<nav class="nav-right">
+  <ul>
+    <li>
+      <a href="{% url 'manage_quotes' %}" class="{% if request.resolver_match.url_name == 'rotarian' %}active{% endif %}">Manage Quotes</a>
+    </li>
+ <li>
+     <a href="{% url 'logout' %}">Log Out</a>
+    </li>
+
+  </ul>
+</nav>
+  
+  </div>
+</header>
+
+  </div>
+
+ 
+</body>
+
+ <script>
+   let slideIndex = 0;
+    const slides = document.getElementsByClassName("slide");
+    const dots = document.getElementsByClassName("dot");
+    const slideTexts = [
+      "Experience the Art of Mixology",
+      "A Taste of Manila's Finest",
+      "Dine in Style and Elegance"
+    ];
+
+    function showSlide(n) {
+  for (let i = 0; i < slides.length; i++) {
+    slides[i].style.display = "none";
+    dots[i]?.classList.remove("active");
+
+    // Clean up animations
+    const text = slides[i].querySelector(".slide-text");
+    const subtext = slides[i].querySelector(".slide-subtext");
+    text?.classList.remove("animated-text");
+    subtext?.classList.remove("animated-text");
+
+    // Hide text immediately
+    text?.classList.remove("visible");
+    subtext?.classList.remove("visible");
+  }
+
+  slides[n].style.display = "block";
+  dots[n]?.classList.add("active");
+
+  const activeText = slides[n].querySelector(".slide-text");
+  const activeSubtext = slides[n].querySelector(".slide-subtext");
+
+  setTimeout(() => {
+    activeText?.classList.add("animated-text", "visible");
+    activeSubtext?.classList.add("animated-text", "visible");
+  }, 50); // brief delay ensures re-animation
+}
+
+    function nextSlide() {
+      slideIndex = (slideIndex + 1) % slides.length;
+      showSlide(slideIndex);
+    }
+
+    // Auto slideshow
+    function autoSlide() {
+      nextSlide();
+      setTimeout(autoSlide, 14000); // 14 seconds
+    }
+
+    // Initialize
+    document.addEventListener("DOMContentLoaded", function() {
+      showSlide(0);
+      setTimeout(autoSlide, 14000);
+    });
+    window.addEventListener('scroll', function () {
+  const sticky = document.getElementById('stickyHeader');
+  if (window.scrollY > 100) {
+    sticky.style.display = 'block';
+  } else {
+    sticky.style.display = 'none';
+  }
+});
+
+window.addEventListener('scroll', function () {
+  const sticky = document.getElementById('stickyHeader');
+  const slideshowLogo = document.getElementById('slideshowLogo');
+
+  if (window.scrollY > 100) {
+    sticky.classList.add('show');
+    slideshowLogo.classList.add('hidden');
+  } else {
+    sticky.classList.remove('show');
+    slideshowLogo.classList.remove('hidden');
+  }
+});
+function toggleMobileNav() {
+  const sidebar = document.getElementById('mobileSidebar');
+  sidebar.classList.toggle('show');
+  document.body.style.overflow = sidebar.classList.contains('show') ? 'hidden' : '';
+}
+  </script>
+<script>
+  let mobileLogoInserted = false;
+
+  window.addEventListener('scroll', function () {
+    const sticky = document.getElementById('stickyHeader');
+    const slideshowLogo = document.getElementById('slideshowLogo');
+    const mainHeader = document.querySelector('header');
+    const mobileHeaderRow = document.querySelector('.mobile-header-row');
+
+    if (window.scrollY > 100) {
+      sticky.classList.add('show');
+      slideshowLogo?.classList.add('hidden');
+      mainHeader?.classList.add('hidden');
+
+      // Insert mobile logo if not yet added
+      if (!mobileLogoInserted) {
+        const logo = document.createElement('img');
+        logo.src = "{% static 'images/bradingw.png' %}";
+        logo.alt = "Logo";
+        logo.id = "mobileLogo";
+        logo.className = "mobile-logo";
+        mobileHeaderRow.appendChild(logo);
+        setTimeout(() => logo.classList.add('visible'), 10); 
+        mobileLogoInserted = true;
+      } else {
+        document.getElementById('mobileLogo')?.classList.add('visible');
+      }
+    } else {
+      sticky.classList.remove('show');
+      slideshowLogo?.classList.remove('hidden');
+      mainHeader?.classList.remove('hidden');
+
+      const logo = document.getElementById('mobileLogo');
+      if (logo) logo.classList.remove('visible');
+    }
+  });
+</script>
+
+  </html>
