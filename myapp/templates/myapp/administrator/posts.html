@@ -335,7 +335,26 @@
   transition: opacity 0.3s ease;
   z-index: 5;
 }
+  #quill-editor-wrapper {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    margin-top: 10px;
+  }
 
+  #quill-editor {
+    height: 300px;
+    max-height: 500px;
+    overflow-y: auto;
+    background-color: #fff;
+    border-radius: 4px;
+  }
+
+  @media (max-width: 768px) {
+    #quill-editor {
+      height: 200px;
+    }
+  }
 .edit-icon {
   position: absolute;
   top: 10px;
@@ -390,8 +409,8 @@
   <input type="text" name="title" id="title" required>
 
   <label>Description:</label>
-  <div id="quill-editor"></div>
-<textarea name="description" id="editor" hidden></textarea>
+<div id="quill-editor" style="height: 200px;"></div>
+<textarea name="description" id="description" style="display: none;"></textarea>
 
   <label>URL:</label>
   <input type="url" name="url" id="url">
@@ -456,167 +475,162 @@
 
 </div>
 
-
-<script src="https://cdn.tiny.cloud/1/itqdp94i9u9yudvko3lgv2zdwa0keqwrwk4zvau9goesxhzx/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
 <script>
-  function initTinyMCE() {
-    tinymce.init({
-      selector: 'textarea[name="description"]',
-      height: 300,
-      menubar: false,
-      plugins: 'link image code lists',
-      toolbar: 'undo redo | bold italic underline | alignleft aligncenter alignright | bullist numlist | link image | code',
-      branding: false
+  let quill;
+
+  function initQuillEditor() {
+    if (quill) return; // prevent reinitialization
+    quill = new Quill('#quill-editor', {
+      theme: 'snow',
+      modules: {
+        toolbar: [
+          ['bold', 'italic', 'underline'],
+          [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+          [{ 'align': [] }],
+          ['link', 'image'],
+          ['code-block'],
+          ['undo', 'redo']
+        ]
+      }
     });
   }
-function editPost(el) {
-  const modal = document.getElementById("vlogModal");
-  modal.classList.add("show");
 
-  document.getElementById("post_id").value = el.dataset.id;
-
-  // Decode Unicode in title if present
-  function decodeUnicode(str) {
-    return str.replace(/\\u[\dA-F]{4}/gi, function (match) {
-      return String.fromCharCode(parseInt(match.replace(/\\u/g, ''), 16));
-    });
-  }
-  document.getElementById("title").value = decodeUnicode(el.dataset.title);
-
-  document.getElementById("url").value = el.dataset.url;
-  document.getElementById("is_article").checked = el.dataset.isArticle === "true";
-
-  // Show image preview
-  const imgPreview = document.getElementById("modalImagePreview");
-  const imgPreview2 = document.getElementById("modalImagePreview2");
-  if (el.dataset.image) {
-    imgPreview.src = el.dataset.image;
-    imgPreview.style.display = "block";
-  } else {
-    imgPreview.style.display = "none";
-  }
-  if (el.dataset.image) {
-    imgPreview2.src = el.dataset.image;
-    imgPreview2.style.display = "block";
-  } else {
-    imgPreview2.style.display = "none";
+  function setQuillContent(html) {
+    const delta = quill.clipboard.convert(html || '');
+    quill.setContents(delta, 'silent');
   }
 
-  // Remove any existing TinyMCE instance before initializing
-  if (tinymce.get("description")) {
-    tinymce.get("description").remove();
+  function getQuillContent() {
+    return quill.root.innerHTML;
   }
 
-  // Initialize TinyMCE and set content after it's ready
-  initTinyMCE();
-  setTimeout(() => {
-    if (tinymce.get("description")) {
-      tinymce.get("description").setContent(el.dataset.description || "");
+  function editPost(el) {
+    const modal = document.getElementById("vlogModal");
+    modal.classList.add("show");
+
+    document.getElementById("post_id").value = el.dataset.id;
+
+    function decodeUnicode(str) {
+      return str.replace(/\\u[\dA-F]{4}/gi, function (match) {
+        return String.fromCharCode(parseInt(match.replace(/\\u/g, ''), 16));
+      });
     }
-  }, 200);
 
-  document.getElementById("submitBtn").textContent = "Update Post";
-}
+    document.getElementById("title").value = decodeUnicode(el.dataset.title);
+    document.getElementById("url").value = el.dataset.url;
+    document.getElementById("is_article").checked = el.dataset.isArticle === "true";
+
+    const imgPreview = document.getElementById("modalImagePreview");
+    const imgPreview2 = document.getElementById("modalImagePreview2");
+
+    if (el.dataset.image) {
+      imgPreview.src = el.dataset.image;
+      imgPreview.style.display = "block";
+      imgPreview2.src = el.dataset.image;
+      imgPreview2.style.display = "block";
+    } else {
+      imgPreview.style.display = "none";
+      imgPreview2.style.display = "none";
+    }
+
+    // Init and set Quill content
+    initQuillEditor();
+    setTimeout(() => {
+      setQuillContent(el.dataset.description || "");
+    }, 100);
+
+    document.getElementById("submitBtn").textContent = "Update Post";
+  }
+
   function openModal() {
-  const modal = document.getElementById("vlogModal");
-  modal.classList.add("show");
+    const modal = document.getElementById("vlogModal");
+    modal.classList.add("show");
 
-  document.getElementById("vlogForm").reset();
-  document.getElementById("post_id").value = "";
-  document.getElementById("submitBtn").textContent = "Add Post";
+    document.getElementById("vlogForm").reset();
+    document.getElementById("post_id").value = "";
+    document.getElementById("submitBtn").textContent = "Add Post";
 
-  setTimeout(() => {
-    initTinyMCE();
-    tinymce.get("description").setContent("");
-  }, 100);
-}
+    initQuillEditor();
+    setTimeout(() => setQuillContent(""), 100);
+  }
 
-function closeModal() {
-  const modal = document.getElementById("vlogModal");
-  modal.classList.remove("show");
-  tinymce.remove(); // remove instance when modal closes
+  function closeModal() {
+    const modal = document.getElementById("vlogModal");
+    modal.classList.remove("show");
 
-  // Reset form fields
-  document.getElementById("vlogForm").reset();
-  document.getElementById("post_id").value = "";
-  document.getElementById("title").value = "";
-  document.getElementById("url").value = "";
-  document.getElementById("is_article").checked = false;
+    // Destroy the Quill instance and clear DOM
+    if (quill) {
+      quill.root.innerHTML = '';
+    }
 
-  // Hide image previews
-  document.getElementById("modalImagePreview").style.display = "none";
-  document.getElementById("modalImagePreview2").style.display = "none";
-}
+    document.getElementById("vlogForm").reset();
+    document.getElementById("post_id").value = "";
+    document.getElementById("title").value = "";
+    document.getElementById("url").value = "";
+    document.getElementById("is_article").checked = false;
 
-  // Optional: Close on outside click
-  window.onclick = function(event) {
+    document.getElementById("modalImagePreview").style.display = "none";
+    document.getElementById("modalImagePreview2").style.display = "none";
+  }
+
+  window.onclick = function (event) {
     const modal = document.getElementById("vlogModal");
     if (event.target === modal) {
       closeModal();
     }
   };
-</script>
 
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-  function isMobile() {
-    return window.innerWidth <= 768;
-  }
-  const vlogGallery = document.getElementById('vlogGallery');
-  const vlogCards = Array.from(vlogGallery.getElementsByClassName('vlog-card'));
-  const showMoreBtn = document.getElementById('showMoreVlogs');
+  // Sync Quill content before form submit
+  document.addEventListener("DOMContentLoaded", function () {
+    document.getElementById("vlogForm").addEventListener("submit", function () {
+      document.getElementById("description").value = getQuillContent();
+    });
 
-  function updateVlogDisplay() {
-    if (isMobile() && vlogCards.length > 3) {
-      vlogCards.forEach((card, idx) => {
-        card.style.display = idx < 3 ? '' : 'none';
-      });
-      showMoreBtn.style.display = 'block';
-    } else if (!isMobile() && vlogCards.length > 6) {
-      vlogCards.forEach((card, idx) => {
-        card.style.display = idx < 6 ? '' : 'none';
-      });
-      showMoreBtn.style.display = 'block';
-    } else {
+    // Responsive Vlog display logic
+    function isMobile() {
+      return window.innerWidth <= 768;
+    }
+
+    const vlogGallery = document.getElementById('vlogGallery');
+    const vlogCards = Array.from(vlogGallery.getElementsByClassName('vlog-card'));
+    const showMoreBtn = document.getElementById('showMoreVlogs');
+
+    function updateVlogDisplay() {
+      if (isMobile() && vlogCards.length > 3) {
+        vlogCards.forEach((card, idx) => {
+          card.style.display = idx < 3 ? '' : 'none';
+        });
+        showMoreBtn.style.display = 'block';
+      } else if (!isMobile() && vlogCards.length > 6) {
+        vlogCards.forEach((card, idx) => {
+          card.style.display = idx < 6 ? '' : 'none';
+        });
+        showMoreBtn.style.display = 'block';
+      } else {
+        vlogCards.forEach(card => card.style.display = '');
+        showMoreBtn.style.display = 'none';
+      }
+    }
+
+    showMoreBtn.addEventListener('click', function () {
       vlogCards.forEach(card => card.style.display = '');
       showMoreBtn.style.display = 'none';
-    }
-  }
+    });
 
-  showMoreBtn.addEventListener('click', function() {
-    vlogCards.forEach(card => card.style.display = '');
-    showMoreBtn.style.display = 'none';
-  });
+    updateVlogDisplay();
+    window.addEventListener('resize', updateVlogDisplay);
 
-  updateVlogDisplay();
-  window.addEventListener('resize', updateVlogDisplay);
-});
-
-document.addEventListener('click', function(e) {
-  if (e.target.classList.contains('delete-icon')) {
-    e.preventDefault();
-    if (confirm('Are you sure you want to delete this post?')) {
-
-      alert('The post has been deleted.');
-      e.target.closest('form').submit();
-    }
-
-  }
-});
-</script>
-
-
-
-  <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
-
-<!-- Initialize Quill editor -->
-<script>
-  const quill = new Quill('#quill-editor', {
-    theme: 'snow'
-  });
-
-  document.querySelector('form')?.addEventListener('submit', function () {
-    document.getElementById('editor').value = quill.root.innerHTML;
+    // Delete confirmation
+    document.addEventListener('click', function (e) {
+      if (e.target.classList.contains('delete-icon')) {
+        e.preventDefault();
+        if (confirm('Are you sure you want to delete this post?')) {
+          alert('The post has been deleted.');
+          e.target.closest('form').submit();
+        }
+      }
+    });
   });
 </script>
 </body>
