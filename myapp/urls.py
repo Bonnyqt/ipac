@@ -4,7 +4,13 @@ from django.urls import path
 from . import views
 from django.conf import settings
 from django.conf.urls.static import static
-
+from django.contrib import admin
+from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
+from django.views.static import serve
+from django.conf import settings
+from django.urls import re_path
 urlpatterns = [
     path('', views.index, name='index'),
 
@@ -29,3 +35,5 @@ urlpatterns = [
       path('add-quote/', views.add_quote, name='add_quote'),
           path('set-default-quote/<int:quote_id>/', views.set_default_quote, name='set_default_quote'),
 ]
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
