@@ -20,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Static files (CSS, JS, etc.)
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']  # ✅ make sure it points to that folder
-STATIC_ROOT = BASE_DIR / 'staticfiles' 
+STATIC_ROOT = BASE_DIR / "staticfiles" 
 
 # Media files (uploaded by users)
 MEDIA_URL = '/media/'
@@ -28,7 +28,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
-
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = config('SECRET_KEY', default='unsafe-default-key')
 #SECURE_SSL_REDIRECT = True
@@ -66,6 +66,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "whitenoise.middleware.WhiteNoiseMiddleware",
 ]
 
 ROOT_URLCONF = 'ipac.urls'
