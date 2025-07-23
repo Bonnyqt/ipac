@@ -44,8 +44,8 @@ def send_email(request):
 
         # 📧 Email content
         subject = "📝 New Message from Atty. Jay-R Ipac Website"
-        to_email = ['marquezjonbon@gmail.com']
-        from_email = 'rafolslenelyn10@gmail.com'
+        to_email = ['attyjayr.ipac@gmail.com']
+        from_email = 'attyjayr.ipac@gmail.com'
 
         html_content = f"""
         <div style="font-family: Arial, sans-serif; color: #333;">
