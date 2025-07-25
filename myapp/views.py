@@ -89,9 +89,17 @@ def chevening_alumnus(request):
     return render(request, 'myapp/chevening.html')
 def eco_waste_advocate(request):
     return render(request, 'myapp/ecowaste.html')
+from django.urls import reverse
 def view_article(request, post_id):
     post = get_object_or_404(VlogPost, id=post_id, is_article=True)
-    return render(request, 'myapp/articles.html', {'post': post})
+
+    # Absolute image URL for Open Graph
+    image_url = request.build_absolute_uri(reverse('serve_post_image', args=[post.id]))
+
+    return render(request, 'myapp/articles.html', {
+        'post': post,
+        'image_url': image_url  # pass to template
+    })
 from django.shortcuts import render
 from itertools import groupby
 from operator import attrgetter
@@ -251,6 +259,7 @@ def admin_dashboard(request):
     posts = VlogPost.objects.all().order_by('-created_at')
     return render(request, 'myapp/administrator/dashboard.html', {'posts': posts})
 
+
 @login_required
 def manage_posts(request):
     if request.method == 'POST':
@@ -261,22 +270,25 @@ def manage_posts(request):
         image = request.FILES.get('image')
         is_article = 'is_article' in request.POST
 
+        image_data = image.read() if image else None
+        image_type = image.content_type if image else ''
+
         if post_id:
-            # Update existing post
             post = get_object_or_404(VlogPost, id=post_id)
             post.title = title
             post.description = description
             post.url = url
             post.is_article = is_article
-            if image:
-                post.image = image
+            if image_data:
+                post.image_data = image_data
+                post.image_content_type = image_type
             post.save()
         else:
-            # Create new post
             VlogPost.objects.create(
                 title=title,
                 description=description,
-                image=image,
+                image_data=image_data,
+                image_content_type=image_type,
                 url=url,
                 is_new=True,
                 is_article=is_article
@@ -292,6 +304,13 @@ def manage_posts(request):
             post.save(update_fields=['is_new'])
 
     return render(request, 'myapp/administrator/posts.html', {'posts': posts})
+from django.http import HttpResponse, Http404
+
+def serve_post_image(request, post_id):
+    post = get_object_or_404(VlogPost, id=post_id)
+    if post.image_data:
+        return HttpResponse(post.image_data, content_type=post.image_content_type)
+    raise Http404("Image not found")
 
 @login_required
 def mails(request):

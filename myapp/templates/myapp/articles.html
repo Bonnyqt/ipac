@@ -1,4 +1,14 @@
 {% load static %}
+  {% block meta %}{% endblock %}
+  <title>{% block title %}{{ post.title }}{% endblock %}</title>
+<meta property="og:title" content="{{ post.title }}">
+<meta property="og:description" content="{{ post.description|striptags|truncatechars:150 }}">
+<meta property="og:type" content="article">
+<meta property="og:url" content="{{ request.build_absolute_uri }}">
+<meta property="og:image" content="{{ image_url }}">
+<meta property="og:image:type" content="{{ post.image_content_type }}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 
   <style>
   @keyframes fadeInUp {
@@ -118,7 +128,7 @@
  
 <div class="article-template">
   <div class="image-wrapper">
-    <img src="{{ post.image.url }}" alt="Article Image">
+    <img src="{% url 'serve_post_image' post.id %}" alt="Article Image">
   </div>
 
   <!-- Background image here -->

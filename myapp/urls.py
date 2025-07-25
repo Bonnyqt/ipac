@@ -34,6 +34,7 @@ urlpatterns = [
       path('manage_quotes', views.manage_quotes, name='manage_quotes'),
       path('add-quote/', views.add_quote, name='add_quote'),
           path('set-default-quote/<int:quote_id>/', views.set_default_quote, name='set_default_quote'),
+          path('image/<int:post_id>/', views.serve_post_image, name='serve_post_image'),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

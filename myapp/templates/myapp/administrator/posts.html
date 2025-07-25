@@ -443,7 +443,7 @@
         <div class="new-post-banner">NEW POST</div>
       {% endif %}
       <a href="{{ post.url }}" target="_blank">
-        <img src="{{ post.image.url }}" alt="{{ post.title }}">
+        <img src="{% url 'serve_post_image' post.id %}" alt="{{ post.title }}">>
         <div class="vlog-hover-text">
           <h3>{{ post.title }}</h3>
         </div>
@@ -460,7 +460,7 @@
    data-title="{{ post.title|escapejs }}"
    data-description="{{ post.description|default_if_none:'' }}"
    data-url="{{ post.url|default_if_none:''|escapejs }}"
-   data-image="{{ post.image.url }}"
+   data-image="{% url 'serve_post_image' post.id %}"
    data-is-article="{{ post.is_article|yesno:'true,false' }}"
    title="Edit this post"
    onclick="editPost(this)">✎</a>

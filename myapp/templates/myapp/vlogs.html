@@ -166,7 +166,7 @@
         {% if post.is_new %}
           <div class="new-post-banner">NEW POST</div>
         {% endif %}
-        <img src="{{ post.image.url }}" alt="{{ post.title }}">
+        <img src="{% url 'serve_post_image' post.id %}" alt="{{ post.title }}">
         <div class="vlog-hover-text">
           <h3>{{ post.title | safe }}</h3>
  
