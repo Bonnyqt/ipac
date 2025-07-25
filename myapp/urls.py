@@ -46,7 +46,9 @@ urlpatterns = [
     path('post/image/<int:post_id>/', views.serve_post_image, name='serve_post_image'),
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
     path("googleb80ef680ea35a164.html", TemplateView.as_view(template_name="googleb80ef680ea35a164.html",content_type="text/html")),
+    path("robots.txt", views.robots_txt),
 ]
+
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 else:

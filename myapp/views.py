@@ -107,7 +107,9 @@ from .models import VlogPost
 
 from django.db.models import Q
 from itertools import groupby
-
+def robots_txt(request):
+    content = "User-agent: *\nDisallow:\n\nSitemap: https://jayripac.com/sitemap.xml"
+    return HttpResponse(content, content_type="text/plain")
 # ...existing code...
 def latest(request):
     query = request.GET.get('q', '')
