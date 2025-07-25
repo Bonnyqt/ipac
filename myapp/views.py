@@ -308,8 +308,12 @@ from django.http import HttpResponse, Http404
 
 def serve_post_image(request, post_id):
     post = get_object_or_404(VlogPost, id=post_id)
+
     if post.image_data:
-        return HttpResponse(post.image_data, content_type=post.image_content_type)
+        response = HttpResponse(post.image_data, content_type=post.image_content_type or 'image/jpeg')
+        response['Content-Disposition'] = f'inline; filename="post-{post_id}.jpg"'
+        return response
+
     raise Http404("Image not found")
 
 @login_required
