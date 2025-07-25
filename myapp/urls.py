@@ -11,6 +11,14 @@ from django.conf.urls.static import static
 from django.views.static import serve
 from django.conf import settings
 from django.urls import re_path
+from django.contrib.sitemaps.views import sitemap
+from .sitemaps import PostSitemap
+
+sitemaps = {
+    'posts': PostSitemap,
+}
+
+
 urlpatterns = [
     path('', views.index, name='index'),
 
@@ -35,7 +43,8 @@ urlpatterns = [
       path('add-quote/', views.add_quote, name='add_quote'),
           path('set-default-quote/<int:quote_id>/', views.set_default_quote, name='set_default_quote'),
           path('image/<int:post_id>/', views.serve_post_image, name='serve_post_image'),
-    path('post/image/<int:post_id>/', views.serve_post_image, name='serve_post_image')
+    path('post/image/<int:post_id>/', views.serve_post_image, name='serve_post_image'),
+    path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
