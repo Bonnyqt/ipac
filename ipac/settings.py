@@ -41,7 +41,7 @@ SECRET_KEY = config('SECRET_KEY', default='unsafe-default-key')
 #SECURE_BROWSER_XSS_FILTER = True
 #SECURE_CONTENT_TYPE_NOSNIFF = True
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG', default=False, cast=bool)
 
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
 
