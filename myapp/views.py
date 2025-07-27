@@ -32,7 +32,14 @@ def index(request):
         'default_quote': default_quote,
     })  
 
+from django.templatetags.static import static
 
+def seo_meta(request):
+    return {
+        'OG_IMAGE': request.build_absolute_uri(static('images/weblogo.jpg')),
+        'SITE_TITLE': "ATTY. JAY-R IPAC",
+        'SITE_DESCRIPTION': "Jayr is currently a Partner at one of the leading law firms in the Philippines. His practice areas include intellectual property, data privacy / protection, cybercrime, e-commerce law, tech contracts review, financial technology, corporate and criminal litigation, and regulatory intersections of law and technology (like blockchain and artificial intelligence).",
+    }
 
 def send_email(request):
     if request.method == 'POST':
@@ -91,6 +98,7 @@ def eco_waste_advocate(request):
     return render(request, 'myapp/ecowaste.html')
 from django.urls import reverse
 def view_article(request, post_id):
+    
     post = get_object_or_404(VlogPost, id=post_id, is_article=True)
 
     # Absolute image URL for Open Graph
