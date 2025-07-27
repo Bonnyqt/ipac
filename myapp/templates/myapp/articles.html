@@ -1,4 +1,5 @@
 {% load static %}
+<link rel="icon" type="image/png" href="{% static 'images/weblogo.png' %}">
   {% block meta %}{% endblock %}
   <title>{% block title %}{{ post.title }}{% endblock %}</title>
 <meta property="og:title" content="{{ post.title }}">
@@ -98,7 +99,7 @@
   top: 300px; /* Adjust to be below image-wrapper */
   right: 0;
   width: 700px;
-  opacity: 0.05;
+  opacity: 0.08;
   z-index: 0;
   pointer-events: none;
 }
@@ -133,7 +134,7 @@
 
   <!-- Background image here -->
   <img src="{% static 'images/background.png' %}" class="bg-img" alt="">
-<img src="{% static 'images/backgroundright.png' %}" class="bg-img2" alt="">
+
   <div class="article-content">
     <h1 class="article-title">{{ post.title }}</h1>
     <p class="article-meta">By Atty. Jay-r Ipac • {{ post.created_at|date:"F j, Y" }}</p>
