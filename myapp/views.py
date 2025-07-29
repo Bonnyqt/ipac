@@ -92,14 +92,11 @@ def eco_waste_advocate(request):
 from django.urls import reverse
 def view_article(request, post_id):
     post = get_object_or_404(VlogPost, id=post_id, is_article=True)
-    print(post.image)          # shows whether there's a value
-    print(post.image.url)      # see what it's trying to return
 
-    # Safely get image URL or fallback
-    if post.image and hasattr(post.image, 'url'):
+    try:
         image_url = request.build_absolute_uri(post.image.url)
-    else:
-        image_url = request.build_absolute_uri('/static/images/default.png')  # Or your fallback image
+    except (ValueError, AttributeError):
+        image_url = request.build_absolute_uri('/static/images/weblogo.png')
 
     return render(request, 'myapp/articles.html', {
         'post': post,
