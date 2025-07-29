@@ -34,7 +34,7 @@ urlpatterns = [
     path('dashboard/', views.admin_dashboard, name='admin_dashboard'),
     path('manage-posts/', views.manage_posts, name='manage_posts'),
     path('delete-post/<int:post_id>/', views.delete_post, name='delete_post'),
-     path('article/<int:post_id>/', views.view_article, name='view_article'),
+
      path('latest', views.latest, name='latest'),
     path('manage_posts/', views.manage_posts, name='manage_posts'),
      path('mails', views.mails, name='mails'),
@@ -42,7 +42,7 @@ urlpatterns = [
       path('manage_quotes', views.manage_quotes, name='manage_quotes'),
       path('add-quote/', views.add_quote, name='add_quote'),
           path('set-default-quote/<int:quote_id>/', views.set_default_quote, name='set_default_quote'),
-    
+               path('article/<int:post_id>/', views.view_article, name='view_article'),
     path('post/image/<int:post_id>/', views.serve_post_image, name='serve_post_image'),
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
     path("googleb80ef680ea35a164.html", TemplateView.as_view(template_name="googleb80ef680ea35a164.html",content_type="text/html")),
