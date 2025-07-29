@@ -1,5 +1,6 @@
 {% load static %}
 {% block meta %}
+<head>
   <meta property="og:title" content="{{ post.title }}">
   <meta property="og:description" content="{{ post.description|striptags|truncatechars:150 }}">
   <meta property="og:type" content="article">
@@ -11,7 +12,7 @@
   <meta property="fb:app_id" content="719150837767943">
 {% endblock %}
 <title>{{ post.title }}</title>
-<link rel="icon" type="image/png" href="{% static 'images/weblogo.png' %}">
+<link rel="icon" type="image/png" href="{% static 'images/weblogo.png' %}"></head>
   <style>
   @keyframes fadeInUp {
   0% {
