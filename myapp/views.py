@@ -91,16 +91,15 @@ def eco_waste_advocate(request):
     return render(request, 'myapp/ecowaste.html')
 from django.urls import reverse
 def view_article(request, post_id):
+    
     post = get_object_or_404(VlogPost, id=post_id, is_article=True)
 
-    try:
-        image_url = request.build_absolute_uri(post.image.url)
-    except (ValueError, AttributeError):
-        image_url = request.build_absolute_uri('/static/images/weblogo.png')
+    # Absolute image URL for Open Graph
+    image_url = request.build_absolute_uri(reverse('serve_post_image', args=[post.id]))
 
     return render(request, 'myapp/articles.html', {
         'post': post,
-        'image_url': image_url
+        'image_url': image_url  # pass to template
     })
 from django.shortcuts import render
 from itertools import groupby
