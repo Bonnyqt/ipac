@@ -17,7 +17,7 @@ from itertools import groupby
 from django.db.models import Count
 from datetime import datetime
 from django.db.models.functions import TruncDate
-
+from django.shortcuts import get_object_or_404
 
 def index(request):
     posts = VlogPost.objects.all().order_by('-created_at')
@@ -90,17 +90,20 @@ def chevening_alumnus(request):
 def eco_waste_advocate(request):
     return render(request, 'myapp/ecowaste.html')
 from django.urls import reverse
+import logging
+logger = logging.getLogger(__name__)
+
 def view_article(request, post_id):
-    
-    post = get_object_or_404(VlogPost, id=post_id, is_article=True)
-
-    # Absolute image URL for Open Graph
-    image_url = request.build_absolute_uri(reverse('serve_post_image', args=[post.id]))
-
-    return render(request, 'myapp/articles.html', {
-        'post': post,
-        'image_url': image_url  # pass to template
-    })
+    try:
+        post = get_object_or_404(VlogPost, id=post_id, is_article=True)
+        image_url = request.build_absolute_uri(reverse('serve_post_image', args=[post.id]))
+        return render(request, 'myapp/articles.html', {
+            'post': post,
+            'image_url': image_url
+        })
+    except Exception as e:
+        logger.error(f"Error in view_article: {e}")
+        return HttpResponse("Internal Server Error", status=500)
 from django.shortcuts import render
 from itertools import groupby
 from operator import attrgetter
@@ -174,8 +177,7 @@ from django.utils.timezone import now
 from .models import VlogPost
 from .models import Quote
 from django.http import HttpResponseForbidden
-from django.shortcuts import get_object_or_404, redirect
-
+from django.shortcuts import get_object_or_404
 def admin_jayr(request):
     return render(request, 'myapp/administrator/index.html')
 

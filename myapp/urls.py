@@ -32,7 +32,6 @@ urlpatterns = [
     path('eco_waste_advocate', views.eco_waste_advocate, name='eco_waste_advocate'),
     path('admin_jayr', views.admin_jayr, name='admin_jayr'),
     path('dashboard/', views.admin_dashboard, name='admin_dashboard'),
-    path('manage-posts/', views.manage_posts, name='manage_posts'),
     path('delete-post/<int:post_id>/', views.delete_post, name='delete_post'),
 
      path('latest', views.latest, name='latest'),
