@@ -93,8 +93,10 @@ from django.urls import reverse
 def view_article(request, post_id):
     post = get_object_or_404(VlogPost, id=post_id, is_article=True)
 
-    # Use direct file URL for og:image
-    image_url = request.build_absolute_uri(post.image.url) if post.image else ''
+    try:
+        image_url = request.build_absolute_uri(post.image.url)
+    except (ValueError, AttributeError):
+        image_url = request.build_absolute_uri('/static/images/weblogo.png')  # fallback image
 
     return render(request, 'myapp/articles.html', {
         'post': post,
