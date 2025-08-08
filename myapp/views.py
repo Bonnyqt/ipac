@@ -93,27 +93,34 @@ from django.urls import reverse
 import logging
 logger = logging.getLogger(__name__)
 
+import mimetypes
+from django.shortcuts import render, get_object_or_404
+from django.urls import reverse
+from django.http import HttpResponse
+import logging
+
+logger = logging.getLogger(__name__)
+
 def view_article(request, post_id):
     try:
         post = get_object_or_404(VlogPost, id=post_id, is_article=True)
+
+        # Build absolute URL to the image
         image_url = request.build_absolute_uri(reverse('serve_post_image', args=[post.id]))
+
+        # Guess MIME type from image URL
+        mime_type, _ = mimetypes.guess_type(image_url)
+        if not mime_type:
+            mime_type = 'image/jpeg'  # fallback if detection fails
+
         return render(request, 'myapp/articles.html', {
             'post': post,
-            'image_url': image_url
+            'image_url': image_url,
+            'post_image_content_type': mime_type  # Pass to template
         })
     except Exception as e:
         logger.error(f"Error in view_article: {e}")
         return HttpResponse("Internal Server Error", status=500)
-from django.shortcuts import render
-from itertools import groupby
-from operator import attrgetter
-from .models import VlogPost
-
-from django.db.models import Q
-from itertools import groupby
-def robots_txt(request):
-    content = "User-agent: *\nDisallow:\n\nSitemap: https://jayripac.com/sitemap.xml"
-    return HttpResponse(content, content_type="text/plain")
 # ...existing code...
 def latest(request):
     query = request.GET.get('q', '')
