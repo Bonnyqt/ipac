@@ -1,5 +1,12 @@
 {% load static %}
-{% block meta %}</head>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="{% static 'images/weblogo.png' %}">
+
 <meta property="og:title" content="{{ post.title|default:'' }}">
 <meta property="og:description" content="{{ post.description|default:''|striptags|truncatechars:150 }}">
 <meta property="og:type" content="website">
@@ -13,9 +20,10 @@
   <meta name="twitter:title" content="{{ post.title|default:'' }}">
   <meta name="twitter:description" content="{{ post.description|default:''|striptags|truncatechars:150 }}">
   <meta name="twitter:image" content="{{ image_url|default:'/static/default-image.png' }}">
-{% endblock %}
+
 <title>{{ post.title }}</title>
-<link rel="icon" type="image/png" href="{% static 'images/weblogo.png' %}">
+
+</head>
   <style>
   @keyframes fadeInUp {
   0% {
@@ -128,7 +136,7 @@
 }
 
   </style>
-</head>
+
 <body>
  {% include "myapp/header2.html" %}
  
