@@ -121,6 +121,16 @@ def view_article(request, post_id):
     except Exception as e:
         logger.error(f"Error in view_article: {e}")
         return HttpResponse("Internal Server Error", status=500)
+from django.shortcuts import render
+from itertools import groupby
+from operator import attrgetter
+from .models import VlogPost
+
+from django.db.models import Q
+from itertools import groupby
+def robots_txt(request):
+    content = "User-agent: *\nDisallow:\n\nSitemap: https://jayripac.com/sitemap.xml"
+    return HttpResponse(content, content_type="text/plain")
 # ...existing code...
 def latest(request):
     query = request.GET.get('q', '')
