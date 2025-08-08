@@ -53,6 +53,7 @@
     .article-template {
       line-height: 1.6;
       color: #333;
+      padding-bottom: 20px;
       background-color: #fafafa;
     }
 
@@ -134,7 +135,43 @@
   opacity: 0;
   animation: fadeInUp 1s ease-out 0.5s forwards;
 }
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 14px;
+    margin-top: 30px;
+    font-family: Arial, sans-serif;
+}
 
+.page-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: #f5f5f5;
+    color: #4a90e2;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: 1px solid #ddd;
+}
+
+.page-btn:hover {
+    background: #4a90e2;
+    color: white;
+    transform: scale(1.05);
+}
+
+.page-info {
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+    background: #f1f1f1;
+    padding: 6px 12px;
+    border-radius: 6px;
+}
   </style>
 
 <body>
@@ -148,13 +185,44 @@
   <!-- Background image here -->
   <img src="{% static 'images/background.png' %}" class="bg-img" alt="">
 
-  <div class="article-content">
+<div class="article-content">
     <h1 class="article-title">{{ post.title }}</h1>
     <p class="article-meta">By Atty. Jay-r Ipac • {{ post.created_at|date:"F j, Y" }}</p>
+
+
     <div class="article-text">
-      {{ post.description|safe }}
+        {{ page_obj.object_list.0|safe }}
     </div>
-  </div>
+</div>
+
+<!-- Pagination controls -->
+<div class="pagination">
+    {% if page_obj.has_previous %}
+        <a href="?page={{ page_obj.previous_page_number }}" class="page-btn" title="Previous">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor"
+                 class="bi bi-arrow-left-short" viewBox="0 0 16 16">
+                <path fill-rule="evenodd"
+                      d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 
+                         0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 
+                         0 0 1 .5.5"/>
+            </svg>
+        </a>
+    {% endif %}
+
+    <span class="page-info">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+
+    {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}" class="page-btn" title="Next">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor"
+                 class="bi bi-arrow-right-short" viewBox="0 0 16 16">
+                <path fill-rule="evenodd"
+                      d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 
+                         0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 
+                         0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8"/>
+            </svg>
+        </a>
+    {% endif %}
+</div>
 </div>
 
    {% include "myapp/footer.html" %}

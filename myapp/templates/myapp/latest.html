@@ -424,35 +424,36 @@ body {
 <!-- All Posts Summary -->
 <div class="all-posts">
 
-  {% if query %}
-    <div class="search-result-info" style="text-align:center; padding:20px; font-family:'Montserrat', sans-serif; color:#333;">
-      Showing results for <strong>"{{ query }}"</strong>
-    </div>
-  {% endif %}
+ {% if query %}
+  <div class="search-result-info" style="text-align:center; padding:20px; font-family:'Montserrat', sans-serif; color:#333;">
+    Showing results for <strong>"{{ query }}"</strong>
+  </div>
+{% endif %}
 
-  {% if not has_results %}
-    <div class="no-results" style="text-align:center; padding:40px 20px; font-family:'Montserrat', sans-serif; font-size:20px; color:#555;">
-      No posts found matching your search.
+{% if show_no_results %}
+  <div class="no-results" style="text-align:center; padding:40px 20px; font-family:'Montserrat', sans-serif; font-size:20px; color:#555; margin:50px;">
+    No posts found matching your search.
+  </div>
+{% else %}
+  {% for date, posts_on_date in grouped_posts %}
+    <h2 class="post-date">{{ date }}</h2>
+    <div class="vlog-gallery">
+      {% for post in posts_on_date %}
+        <a href="{% if post.is_article %}{% url 'view_article' post.id %}{% else %}{{ post.url }}{% endif %}" class="vlog-card" target="_blank">
+          {% if post.is_new %}
+            <div class="new-post-banner">NEW POST</div>
+          {% endif %}
+          <img src="{% url 'serve_post_image' post.id %}" alt="{{ post.title }}">
+          <div class="vlog-hover-text">
+            <h3>{{ post.title }}</h3>
+          </div>
+        </a>
+      {% endfor %}
     </div>
-  {% else %}
-    {% for date, posts_on_date in grouped_posts %}
-      <h2 class="post-date">{{ date }}</h2>
-      <div class="vlog-gallery">
-        {% for post in posts_on_date %}
-          <a href="{% if post.is_article %}{% url 'view_article' post.id %}{% else %}{{ post.url }}{% endif %}" class="vlog-card" target="_blank">
-            {% if post.is_new %}
-              <div class="new-post-banner">NEW POST</div>
-            {% endif %}
-            <img src="{{ post.image.url }}" alt="{{ post.title }}">
-            <div class="vlog-hover-text">
-              <h3>{{ post.title }}</h3>
-            </div>
-          </a>
-        {% endfor %}
-      </div>
-    {% endfor %}
-  {% endif %}
+  {% endfor %}
+{% endif %}
 </div>
+
 
 
 <!-- FOOTER -->

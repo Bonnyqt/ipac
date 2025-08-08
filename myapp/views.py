@@ -93,10 +93,11 @@ from django.urls import reverse
 import logging
 logger = logging.getLogger(__name__)
 
-import mimetypes
-from django.shortcuts import render, get_object_or_404
-from django.urls import reverse
+from django.core.paginator import Paginator
+from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponse
+from django.urls import reverse
+import mimetypes
 import logging
 
 logger = logging.getLogger(__name__)
@@ -111,13 +112,23 @@ def view_article(request, post_id):
         # Guess MIME type from image URL
         mime_type, _ = mimetypes.guess_type(image_url)
         if not mime_type:
-            mime_type = 'image/jpeg'  # fallback if detection fails
+            mime_type = 'image/jpeg'  # fallback
+
+        # Split article content by [pagebreak]
+        pages = post.description.split("[pagebreak]")
+
+        # Django pagination: 1 page per view
+        paginator = Paginator(pages, 1)
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
 
         return render(request, 'myapp/articles.html', {
             'post': post,
             'image_url': image_url,
-            'post_image_content_type': mime_type  # Pass to template
+            'post_image_content_type': mime_type,
+            'page_obj': page_obj
         })
+
     except Exception as e:
         logger.error(f"Error in view_article: {e}")
         return HttpResponse("Internal Server Error", status=500)
@@ -125,47 +136,44 @@ from django.shortcuts import render
 from itertools import groupby
 from operator import attrgetter
 from .models import VlogPost
-
+from datetime import datetime, timedelta
 from django.db.models import Q
 from itertools import groupby
 def robots_txt(request):
     content = "User-agent: *\nDisallow:\n\nSitemap: https://jayripac.com/sitemap.xml"
     return HttpResponse(content, content_type="text/plain")
 # ...existing code...
+
 def latest(request):
-    query = request.GET.get('q', '')
-    selected_date = request.GET.get('date', '')  # get the date filter
+    query = request.GET.get('q', '').strip()
+    selected_date = request.GET.get('date', '').strip()
     posts = VlogPost.objects.all()
 
-    # Search query filtering
+    # Keyword search
     if query:
         posts = posts.filter(
             Q(title__icontains=query) | Q(description__icontains=query)
         )
 
-    # Date filtering using TruncDate for accurate matching
-    group_by_field = 'created_at'
+    # Date filter using range
     if selected_date:
         try:
             date_obj = datetime.strptime(selected_date, '%Y-%m-%d').date()
-            posts = posts.annotate(post_date=TruncDate('created_at')).filter(post_date=date_obj)
-            group_by_field = 'post_date'
+            next_day = date_obj + timedelta(days=1)
+            posts = posts.filter(created_at__gte=date_obj, created_at__lt=next_day)
         except ValueError:
-            pass  # ignore invalid date format
+            pass  # Ignore invalid date format
 
+    # Order by newest first
     posts = posts.order_by('-created_at')
-    posts_list = list(posts)  # Force evaluation
+    posts_list = list(posts)  # Force evaluation for groupby
 
     # Group posts by date
     grouped_posts = []
-    if group_by_field == 'post_date':
-        for date, items in groupby(posts_list, key=lambda p: p.post_date):
-            grouped_posts.append((date, list(items)))
-    else:
-        for date, items in groupby(posts_list, key=lambda p: p.created_at.date()):
-            grouped_posts.append((date, list(items)))
+    for date, items in groupby(posts_list, key=lambda p: p.created_at.date()):
+        grouped_posts.append((date, list(items)))
 
-    # Get 5 most common titles (recommended keywords)
+    # Recommended keywords (top 5 most common titles)
     recommended_titles = (
         VlogPost.objects
         .values('title')
@@ -173,16 +181,16 @@ def latest(request):
         .order_by('-count')[:5]
     )
     recommended_keywords = [item['title'] for item in recommended_titles]
+    show_no_results = not posts_list and (query or selected_date)
 
     return render(request, 'myapp/latest.html', {
         'grouped_posts': grouped_posts,
         'query': query,
         'selected_date': selected_date,
-        'has_results': posts.exists(),
+        'has_results': bool(posts_list),
         'recommended_keywords': recommended_keywords,
+        'show_no_results': show_no_results,  # 👈 new flag
     })
-
-
 
 # ADMINISTRATOR
 
