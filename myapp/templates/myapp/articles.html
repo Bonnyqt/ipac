@@ -1,19 +1,18 @@
 {% load static %}
 {% block meta %}
-<head>
-  <meta property="og:title" content="{{ post.title }}">
-  <meta property="og:description" content="{{ post.description|striptags|truncatechars:150 }}">
+  <meta property="og:title" content="{{ post.title|default:'' }}">
+  <meta property="og:description" content="{{ post.description|default:''|striptags|truncatechars:150 }}">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="{{ request.build_absolute_uri }}">
-  <meta property="og:image" content="{{ image_url }}">
+  <meta property="og:url" content="{{ request.build_absolute_uri|default:'' }}">
+  <meta property="og:image" content="{{ image_url|default:'/static/default-image.png' }}">
   <meta property="og:image:type" content="{{ post.image_content_type|default:'image/jpeg' }}">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="fb:app_id" content="719150837767943">
+<meta property="fb:app_id" content="719150837767943">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="{{ post.title }}">
-  <meta name="twitter:description" content="{{ post.description|striptags|truncatechars:150 }}">
-  <meta name="twitter:image" content="{{ image_url }}">
+  <meta name="twitter:title" content="{{ post.title|default:'' }}">
+  <meta name="twitter:description" content="{{ post.description|default:''|striptags|truncatechars:150 }}">
+  <meta name="twitter:image" content="{{ image_url|default:'/static/default-image.png' }}">
 {% endblock %}
 <title>{{ post.title }}</title>
 <link rel="icon" type="image/png" href="{% static 'images/weblogo.png' %}"></head>
